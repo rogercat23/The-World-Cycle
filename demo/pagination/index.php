@@ -9,7 +9,6 @@
 <title>phpflow.com : Source code of simaple ajax pagination</title>
 </head>
 <body>
-<div><h3>Source code : PHP simaple ajax pagination</h1></div>
 <div>
 <div id="target-content" ><span class="glyphicon glyphicon-refresh"></span> Carregant...</div>
 
