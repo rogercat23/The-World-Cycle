@@ -1,21 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
+<?php
+	include	 'llibreries.php';
+?>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link href="css/bootstrap.min.css" rel="stylesheet">
-<!-- jQuery -->
-<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-<title>phpflow.com : Source code of simaple ajax pagination</title>
+
 </head>
 <body>
 <div>
-<div id="target-content" ><span class="glyphicon glyphicon-refresh"></span> Carregant...</div>
+<div id="iconcarregar" align="center"><h3><span class="glyphicon glyphicon-refresh"></span> Carregant...</h3></div>
+<div id="cos-contingut" >
+	
+</div>
 
 <?php
 require_once("GeneralBD.php");
 $conBD = new GeneralBD();
-$limit = 10;
+$limit = 3;
 $numrows = $conBD->numRows("SELECT * FROM usuari");
 $total_records = $numrows;  
 $total_pages = ceil($total_records / $limit); 
@@ -31,25 +33,26 @@ $total_pages = ceil($total_records / $limit);
 <?php endfor;endif;?> 
 	</div> 
 </div>
-</div>
-	<img src="LoaderIcon.gif" id="loaderIcon" style="display:none" />
-</div>
 </body>
 <script>
 $(document).ready(function() {
-$("#target-content").load("pagination.php?page=1");
+$("#cos-contingut").load("pagination.php?page=1");
+	$("#iconcarregar").hide();
     $("#pagination li").live('click',function(e){
     e.preventDefault();
-        $("#target-content").html(' <span class="glyphicon glyphicon-refresh"></span> Carregant...');
+		$("#cos-contingut").hide();
+    	$("#iconcarregar").show();    
         $("#pagination li").removeClass('active');
         $(this).addClass('active');
         var pageNum = this.id;
-        $("#target-content").load("pagination.php?page=" + pageNum);
+        $("#cos-contingut").load("pagination.php?page=" + pageNum);
+		$("#iconcarregar").hide();
+		$("#cos-contingut").show();
     });
 });
 
 function cridafuncioaccio(action,variable) {
-		$("#loaderIcon").show();
+		$("#iconcarregar").show();
 		alert(variable);
 		var queryString;
 		switch(action) {
@@ -62,7 +65,9 @@ function cridafuncioaccio(action,variable) {
 			case "delete":
 				queryString = 'action='+action+'&message_id='+ id;
 			break;
-		}	/* 
+		}
+		$("#iconcarregar").hide();
+			/* 
 		$.ajax({
 		url: "crud_action.php",
 		data:queryString,

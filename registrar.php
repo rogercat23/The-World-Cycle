@@ -69,7 +69,7 @@
                         </div>
                         <div class="row">
                          	<div class="col-xs-6 has-feedback" id="passworddiv">
-                        		<input type="password" class="form-control" id="password" name="password" placeholder="Password" onChange="comprovarCamps(this.parentNode.id, this.id)" required><span id="passwordicon" class="form-control-feedback glyphicon"></span>
+                        		<input type="password" title="Fica tio" class="form-control" id="password" name="password" placeholder="Password" onChange="comprovarCamps(this.parentNode.id, this.id)" required><span id="passwordicon" class="form-control-feedback glyphicon"></span>
                          	</div>
                          	<div class="col-xs-6 has-feedback" id="password2div">
                         		<input type="password" class="form-control" id="password2"  name="password2" placeholder="Repetir password" onChange="comprovarCamps(this.parentNode.id, this.id)" required><span id="password2icon" class="form-control-feedback glyphicon"></span>
