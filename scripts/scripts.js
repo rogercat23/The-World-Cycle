@@ -9,35 +9,10 @@ $(document).ready(function() {
 	};
 	
 	function netejar_avisats(){
-		$("#correudiv").removeClass("has-warning has-error has-success");
-		$("#passworddiv").removeClass("has-warning has-error has-success");
-		$("#password2div").removeClass("has-warning has-error has-success");
-		$("#nomdiv").removeClass("has-warning has-error has-success");
-		$("#cognom1div").removeClass("has-warning has-error has-success");
-		$("#cognom2div").removeClass("has-warning has-error has-success");
-		$("#telefondiv").removeClass("has-warning has-error has-success");
-		$("#data_naixdiv").removeClass("has-warning has-error has-success");
-		$("#ciutatdiv").removeClass("has-warning has-error has-success");
-		$("#postaldiv").removeClass("has-warning has-error has-success");
-		$("#carrerdiv").removeClass("has-warning has-error has-success");
-		$("#numerodiv").removeClass("has-warning has-error has-success");
-		$("#pisdiv").removeClass("has-warning has-error has-success");
-		$("#portadiv").removeClass("has-warning has-error has-success");	
-		
-		$("#correuicon").removeClass("glyphicon-remove glyphicon-ok glyphicon-alert");
-		$("#passwordicon").removeClass("glyphicon-remove glyphicon-ok glyphicon-alert");
-		$("#password2icon").removeClass("glyphicon-remove glyphicon-ok glyphicon-alert");
-		$("#nomicon").removeClass("glyphicon-remove glyphicon-ok glyphicon-alert");
-		$("#cognom1icon").removeClass("glyphicon-remove glyphicon-ok glyphicon-alert");
-		$("#cognom2icon").removeClass("glyphicon-remove glyphicon-ok glyphicon-alert");
-		$("#telefonicon").removeClass("glyphicon-remove glyphicon-ok glyphicon-alert");
-		$("#data_naixicon").removeClass("glyphicon-remove glyphicon-ok glyphicon-alert");
-		$("#ciutaticon").removeClass("glyphicon-remove glyphicon-ok glyphicon-alert");
-		$("#postalicon").removeClass("glyphicon-remove glyphicon-ok glyphicon-alert");
-		$("#carrericon").removeClass("glyphicon-remove glyphicon-ok glyphicon-alert");
-		$("#numeroicon").removeClass("glyphicon-remove glyphicon-ok glyphicon-alert");
-		$("#pisicon").removeClass("glyphicon-remove glyphicon-ok glyphicon-alert");
-		$("#portaicon").removeClass("glyphicon-remove glyphicon-ok glyphicon-alert");
+		var ids = ["correu", "password", "password2", "nom", "cognom1", "cognom2", "telefon", "data_naix", "ciutat", "postal", "carrer", "numero", "pis", "porta"];
+		for($i=0;$i<ids.length;$i++){//estalviem repetir i cridem per netejar amb array sense repetir res que es més curt i més net.
+			borrarEstilCamp(ids[$i]);
+		}
 	}
 	
 	$.datepicker.regional['ca'] = { //Ficar format catala que no sortia les libreries de jquery UI i que deixi triar opció per canviar mes i any
@@ -67,20 +42,6 @@ $(document).ready(function() {
 		minDate: '-100Y', //minim es fa 100 anys
 		maxDate: 'today' //avui es màxim que no podrem triar demà que es tracta la data de neixament
 	 });
-	
-	if(typeof ciutats != "undefined"){//no totes les pagines crearan variable ciutats i evitem la consola que mostri error si no existeix que principi només pillem la hora de registrar quan introduim ciutats surt la llista automaticament.
-		$( "#ciutat" ).autocomplete({
-			source: ciutats,
-			change: function (event, ui) {
-				borrarEstilCamp("ciutatdiv", "ciutat");
-				if (ui.item) {
-					ficarCorrecteCamp("ciutatdiv", "ciutat");           
-				} else {
-					ficarCorrecteCamp("ciutatdiv", "ciutat");
-				}
-			}
-		});
-	}
 	
 	$("#formulariregistrar").submit(function(){//La hora de clicar per afegir, comprovarem que tots els camps estiguin bé i enviar, si es contrari no deixarem enviar i farem avis.
 		var correcte = true;	
@@ -135,90 +96,107 @@ function mostrar_notificacio_pnotify(titol, missatge, tipus){ //crear finestres 
 }
 
 //Funcions per ficar estil ok, error, warning i borrar estil per evitar tornar introduir i ocupar més espai a la pàgina
-function borrarEstilCamp(iddiv, id){
-	$("#"+iddiv).removeClass("has-warning has-error has-success");
+function borrarEstilCamp(id){
+	$("#"+id+"div").removeClass("has-warning has-error has-success");
 	$("#"+id+"icon").removeClass("glyphicon-remove glyphicon-ok glyphicon-alert");
 }
 
-function ficarErrorCamp(iddiv, id){
-	$("#"+iddiv).addClass("has-error");
+function ficarErrorCamp(id){
+	$("#"+id+"div").addClass("has-error");
 	$("#"+id+"icon").addClass("glyphicon-remove");
 }
 
-function ficarCorrecteCamp(iddiv, id){
-	$("#"+iddiv ).addClass("has-success");
+function ficarCorrecteCamp(id){
+	$("#"+id+"div").addClass("has-success");
 	$("#"+id+"icon").addClass("glyphicon-ok");	
 }
 
-function ficarWarningCamp(iddiv, id){
-	$("#"+iddiv ).addClass("has-warning");
+function ficarWarningCamp(id){
+	$("#"+id+"div").addClass("has-warning");
 	$("#"+id+"icon").addClass("glyphicon-alert");
 }
 
 //Funció per comprovar tots els expressions regulars: variable introduida, expressio regular i id div i id input per mostrar error o correcte. Si es incorrecte retorna false sinó true
-function expressioRegular(vari, regtext, iddiv, id){
+function expressioRegular(vari, regtext, id){
 	if (regtext.test(vari)){
-		ficarCorrecteCamp(iddiv, id);
+		ficarCorrecteCamp(id);
 		return true;
 	} else {
-		ficarErrorCamp(iddiv, id);
+		ficarErrorCamp(id);
 		return false;
 	}
 }
 
 //Funció per comprovar tots els camps que siguin correcte abans d'enviar a BD o fer una consulta
-function comprovarCamps(iddiv,id){
+function comprovarCamps(id){
 	var vari = $("#"+id).val();
-	borrarEstilCamp(iddiv, id);
+	borrarEstilCamp(id);
 	if($("#"+id).val().length == 0) {
 		switch(id){
 			case 'correu':
 				mostrar_notificacio_pnotify("Correu","No has introduit res!","error");
-				ficarErrorCamp(iddiv, id);
+				ficarErrorCamp(id);
 			break;
 			case 'password':
 				mostrar_notificacio_pnotify("Password","No has introduit res!","error");
-				ficarErrorCamp(iddiv, id);
+				ficarErrorCamp(id);
 			break;
 			case 'password2':
 				mostrar_notificacio_pnotify("Repetir Password","No has introduit res!","error");
-				ficarErrorCamp(iddiv, id);
+				ficarErrorCamp(id);
 			break;
 			case 'nom':
 				mostrar_notificacio_pnotify("Nom","No has introduit res!","error");
-				ficarErrorCamp(iddiv, id);
+				ficarErrorCamp(id);
 			break;
 			case 'cognom1':
 				mostrar_notificacio_pnotify("Primer cognom","No has introduit res!","error");
-				ficarErrorCamp(iddiv, id);
+				ficarErrorCamp(id);
 			break;
 			case 'cognom2':
 				mostrar_notificacio_pnotify("Segon cognom","No has introduit res!","error");
-				ficarErrorCamp(iddiv, id);
+				ficarErrorCamp(id);
 			break;
 			case 'telefon':
 				mostrar_notificacio_pnotify("Tel&ecirc;fon","No has introduit res!","error");
-				ficarErrorCamp(iddiv, id);
+				ficarErrorCamp(id);
 			break;
 			case 'data_naix':
 				mostrar_notificacio_pnotify("Data de naixament","No has introduit res!","error");
-				ficarErrorCamp(iddiv, id);
+				ficarErrorCamp(id);
+			break;
+			case 'pais':
+				var prselect = document.getElementById("provinciaregio"); //Pillem id de select de provinci/regio
+				while (prselect.length > 1) {
+						prselect.remove(prselect.length-1);
+				}
+				
+				$("#ciutat").attr("value").valueOf("");//Falta corregit
+				
+				mostrar_notificacio_pnotify("Pais","Torna escullir!","error");
+				borrarEstilCamp("provinciaregio");
+				borrarEstilCamp("ciutat");
+				ficarErrorCamp(id);
+			break;
+			case 'provinciaregio':
+				mostrar_notificacio_pnotify("Provincia/Regio","Torna escullir!","error");
+				ficarErrorCamp(id);
 			break;
 			case 'ciutat':
 				mostrar_notificacio_pnotify("Ciutat","No has introduit res!","error");
-				ficarErrorCamp(iddiv, id);
+				ficarErrorCamp(id);
 			break;
 			case 'postal':
 				mostrar_notificacio_pnotify("Postal","No has introduit res!","error");
-				ficarErrorCamp(iddiv, id);
+				ficarErrorCamp(id);
 			break;
 			case 'carrer':
 				mostrar_notificacio_pnotify("Carrer","No has introduit res!","error");
-				ficarErrorCamp(iddiv, id);
+				ficarErrorCamp(id);
 			break;
 			case 'numero':
 				mostrar_notificacio_pnotify("Numero","No has introduit res!","error");
-				ficarErrorCamp(iddiv, id);
+				ficarErrorCamp(id);
 			break;
 		}
 	} else {
@@ -226,24 +204,35 @@ function comprovarCamps(iddiv,id){
 			case 'correu':
 				var regtext = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/;
 			break;
+			case 'password':
+				var regtext = /(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
+				if($("#passworddiv").hasClass("has-error")){//Si canviem un altre cop la primera i surt malament, hem de posar malament la segona també
+					if( $("#password2div").hasClass("has-success")){
+						borrarEstilCamp("password2");
+						ficarErrorCamp("password2");//Per mostrar que no es el mateix que la primera hem canviat
+					} else {
+							
+					}
+				}
+			break;
 			case 'password2':
 				var pas1 = $("#password").val();
 				var pas2 = $("#password2").val();
 				//alert(pas1 +" "+ pas2);
-				if( pas1 != pas2 ){
-					mostrar_notificacio_pnotify('Les contrassenyes!','No s&oacute;n les mateixes i torna introduir!','error' );
-					$("#passworddiv" ).addClass("has-warning");
-					$("#password2div" ).addClass("has-warning");
-					$("#passwordicon" ).addClass("glyphicon-alert");
-					$("#password2icon" ).addClass("glyphicon-alert");
-					comppas2 =false;
-				} else {
-					$("#passworddiv" ).removeClass("has-warning has-error has-success"); //per poder afegir que es correcte sino no canvia estat per no haver borrat estat warning
-					$("#passwordicon").removeClass("glyphicon-remove glyphicon-ok glyphicon-alert");
-					$("#passworddiv" ).addClass("has-success");
-					$("#password2div" ).addClass("has-success");
-					$("#passwordicon" ).addClass("glyphicon-ok");
-					$("#password2icon" ).addClass("glyphicon-ok");
+				if($("#passworddiv").hasClass("has-error")){
+					mostrar_notificacio_pnotify('La primera contrassenya!','La primera contrassenya no té format que demana, torna introduir que compleixi les normes.','error' );
+					ficarErrorCamp("password2");
+				} else { 
+					if( pas1 != pas2 ){
+						mostrar_notificacio_pnotify('Les contrassenyes!','No s&oacute;n les mateixes i torna introduir!','error' );
+						ficarWarningCamp("password");
+						ficarWarningCamp("password2");
+						comppas2 =false;
+					} else {
+							borrarEstilCamp("password");//per poder afegir que es correcte sino no canvia estat per no haver borrat estat warning
+							ficarCorrecteCamp("password");
+							ficarCorrecteCamp("password2");
+					}
 				}
 			break;
 			case 'nom':
@@ -251,9 +240,6 @@ function comprovarCamps(iddiv,id){
 			case 'cognom2':
 			case 'ciutat':
 				var regtext = /^([A-Z a-z ñàèòáéíóú]{2,60})$/;
-			break;
-			case 'password':
-				var regtext = /(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
 			break;
 			case 'telefon':
 				var regtext = /^\d{9}$/;
@@ -269,12 +255,57 @@ function comprovarCamps(iddiv,id){
 			case 'porta':
 				var regtext = /^([0-9])*$/;
 			break;
-			default:// de moment entra són password i carrer
-				ficarCorrecteCamp(iddiv, id);
+			case 'pais':
+				var id_pais = $("#"+id).val();//Pillem valor escullit del pais per poder pillar totes les provincies i regions (depen pais)
+				var prselect = document.getElementById("provinciaregio"); //Pillem id de select de provinci/regio
+				
+				while (prselect.length > 1) { //Borrem actualment tots menys posició 0 es on tenim Provincia/Regio
+					prselect.remove(prselect.length-1);
+				}
+				
+				for(i=0;i<provinciesregions.length;i++){
+					//alert("id_pais : "+ id_pais +" id_pais provincia/regio : "+ provinciesregions[$i]['id_pais']);
+					if(id_pais == provinciesregions[i]['id_pais']){
+						var coption = document.createElement("option");
+						coption.value = provinciesregions[i]['id'];
+						coption.text = provinciesregions[i]['nom'];
+						prselect.add(coption);
+					}
+				}
+				ficarCorrecteCamp(id);
+			break;
+			case 'provinciaregio':
+				var id_provinciaregio = $("#"+id).val();//Pillem valor escullit del provincia/regio
+				var ciutat_pr = []; //Crear array per ficar autocomplete i fiquem tots els pobles i ciutats de provincia/regio escullit
+				var cont = 0;
+				//alert(id_provinciaregio);
+				for(i=0;i<ciutats.length;i++){
+					//alert("id_provincia/regio : "+ id_provinciaregio +" id_provincia/regio ciutat : "+ ciutats[$i]['id_provinciaregio']);
+					if(id_provinciaregio == ciutats[i]['id_provinciaregio']){ //Comparant que si estan a dins la provincia fiquem array
+						ciutat_pr[cont]= ciutats[i]['nom'];
+						cont++;
+					}
+				}
+				
+				$( "#ciutat" ).autocomplete({//mostrem ciutats quan escribim una paraula surt la llista de posibles 
+					source: ciutat_pr,
+					change: function (event, ui) {
+						borrarEstilCamp("ciutatdiv", "ciutat");
+						if (ui.item) {
+							ficarCorrecteCamp("ciutatdiv", "ciutat");           
+						} else {
+							ficarCorrecteCamp("ciutatdiv", "ciutat");
+						}
+					}
+				});
+				ficarCorrecteCamp(id);
+			break;
+			default://sexe, carrer
+				ficarCorrecteCamp(id);
 			break;
 		}
 		if(typeof regtext != "undefined"){
-			var comp = expressioRegular(vari, regtext, iddiv, id);
+			var comp = expressioRegular(vari, regtext, id);
 			if(!comp){
 				switch(id){
 					case 'correu':
@@ -319,8 +350,8 @@ function comprovarCamps(iddiv,id){
 					case 'correu':
 						for(u=0;u<correus.length;u++){ //comprovar tots els correus que tenim BD i comprar que tenim posat actualment per evitar tenir un altre igual
 							if(vari==correus[u]){
-								$("#"+iddiv).removeClass("has-warning has-error has-success");
-								ficarWarningCamp(iddiv, id);
+								borrarEstilCamp(id);
+								ficarWarningCamp(id);
 								mostrar_notificacio_pnotify("Correu","Ja tenim registrat aquest correu!","error");
 							}
 						}
