@@ -171,7 +171,8 @@ function comprovarCamps(id){
 						prselect.remove(prselect.length-1);
 				}
 				
-				$("#ciutat").attr("value").valueOf("");//Falta corregit
+				$("#ciutat").val("");
+				$( "#ciutat" ).autocomplete({});
 				
 				mostrar_notificacio_pnotify("Pais","Torna escullir!","error");
 				borrarEstilCamp("provinciaregio");

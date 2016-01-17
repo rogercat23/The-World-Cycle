@@ -158,7 +158,7 @@
                       </div>
                       <center>
                           <button type="submit" class="btn btn-success">Registrar</button>
-                          <button type="r	eset" class="btn btn-danger" id="netejarform">Netejar</button>
+                          <button type="reset" class="btn btn-danger" id="netejarform">Netejar</button>
                       </center>
                     </form>
    				</div>
