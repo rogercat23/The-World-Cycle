@@ -92,10 +92,10 @@
                             <div class="col-xs-6 has-feedback c-inputs-stacked" id="hddiv">
                                 <div class="btn-group" data-toggle="buttons">
                                     <label class="btn btn-default">
-                                        <input type="radio" id="hd" name="hd" value="1" onChange="comprovarCamps(this.id)" title="Es obligatori!" required/> Home
+                                        <input type="radio" id="hd" name="hd" value="Home" onChange="comprovarCamps(this.id)" title="Es obligatori!" required/> Home
                                     </label> 
                                     <label class="btn btn-default">
-                                        <input type="radio" id="hd" name="hd" value="2" onChange="comprovarCamps(this.id)"/> Dona
+                                        <input type="radio" id="hd" name="hd" value="Dona" onChange="comprovarCamps(this.id)"/> Dona
                                     </label>
                                     <label class="btn">
                                     	<span id="hdicon" class="form-control-feedback glyphicon"></span>

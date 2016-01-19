@@ -54,6 +54,7 @@
 					$nom = $_POST["nom"]; 
 					$cognom1 = $_POST["cognom1"]; 
 					$cognom2 = $_POST["cognom2"]; 
+					$hd = $_POST["hd"];
 					$telefon = $_POST['telefon']; 
 					$carrer = $_POST["carrer"]; 
 					$data = $_POST["data_naix"];//pillem
@@ -64,9 +65,11 @@
 					$pis = $_POST['pis']; 
 					$por = $_POST['porta']; 
 					$pos = $_POST['postal'];
+					$id_pais = $_POST['pais'];
+					$id_provinciaregio = $_POST['provinciaregio'];
 					$ciutat = $_POST['ciutat'];  
 					$data_inici = date("Y-n-j");//Pilla data actual per guardar data_inici
-					//echo "correu: ". $correu ." password: ". $pass ." nom: ". $nom ." cognom1: ". $cognom1 ." cognom2: ". $cognom2 ." telefon: ". $telefon ." carrer: ". $carrer ." data de naixament: ". $data_naix ." data d'inici ". $data_inici ." numero: ". $num  ." pis: ". $pis ." porta: ". $por  ." postal: ". $pos ." ciutat: ". $ciutat;
+					echo "correu: ". $correu ." password: ". $pass ." nom: ". $nom ." cognom1: ". $cognom1 ." cognom2: ". $cognom2 ." Home/Dona". $hd ."telefon: ". $telefon ." carrer: ". $carrer ." data de naixament: ". $data_naix ." data d'inici ". $data_inici ." numero: ". $num  ." pis: ". $pis ." porta: ". $por  ." postal: ". $pos ." ciutat: ". $ciutat ." provincia/regio: ". $id_provinciaregio ." Pais: ". $id_pais;
 					//echo $data_inici;
 					
 					$GeneralBD = new GeneralBD();
@@ -81,7 +84,7 @@
 					
 					if(!isset($id_ciutat)){//Després de haver buscat en BD, tenint compte si ha creat ip_ciutat significa ha trobat i si es contrari vol dir no ha trobat i haurem de crear.
 						echo "No tenim aquesta ciutat en BD"; 
-						$id_ciutat = $GeneralBD->InReturnId("INSERT INTO `ciutat` (`nom`) VALUES ('".$ciutat."');");
+						$id_ciutat = $GeneralBD->InReturnId("INSERT INTO `ciutat` (`nom`, `id_provinciaregio`) VALUES ('".$ciutat."', ".$id_provinciaregio.");");
 						echo "Ip de la ciutat es ". $id_ciutat;
 					}
 					
@@ -120,7 +123,7 @@
 						echo "Ip de la andre&ccedil;a es ". $id_adreca; 
 					}
 					
-					$GeneralBD->InUpDe("INSERT INTO `usuari` (`correu`, `nom`, `cognom1`, `cognom2`, `telefon`, `data_naix`, `data_inici`, `id_roles`, `id_adreca`, `id_contrassenya`, `id_estat`) VALUES ('".$correu."', '".$nom."', '".$cognom1."', '".$cognom2."', '".$telefon."', '".$data_naix."', '".$data_inici."', '1', '".$id_adreca."', '".$id_pass."', '1');");
+					$GeneralBD->InUpDe("INSERT INTO `usuari` (`correu`, `nom`, `cognom1`, `cognom2`, `hd`, `telefon`, `data_naix`, `data_inici`, `id_roles`, `id_adreca`, `id_contrassenya`, `id_estat`) VALUES ('".$correu."', '".$nom."', '".$cognom1."', '".$cognom2."', '".$hd."', '".$telefon."', '".$data_naix."', '".$data_inici."', '1', '".$id_adreca."', '".$id_pass."', '1');");
 					
 					$GeneralBD->tancarBD();
 				?>
