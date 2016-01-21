@@ -9,16 +9,30 @@
 </head>
 <body>
 <div>
-<div id="iconcarregar" align="center"><h3><span class="glyphicon glyphicon-refresh"></span> Carregant...</h3></div>
+	<?php
+		require_once("GeneralBD.php");
+		$conBD = new GeneralBD();
+		$categories = $conBD->runQuery("SELECT * FROM categoria");
+
+	?>
+
+    <select class="form-control" id="categoria" name="categoria" onChange="seleccionarcategoria(this.id)">
+        <option value="">Seleccionar una categoria...</option>
+        <?php
+            for($i=0;$i<count($categories);$i++){
+                echo "<option value='". $categories[$i]['id'] ."'>". $categories[$i]['nom'] ."</option>";
+            }
+        ?>
+    </select>
+
+<div id="iconcarregar" align="center"><h3><span class="glyphicon glyphicon-refresh .glyphicon-spin"></span> Carregant...</h3></div>
 <div id="cos-contingut" >
 	
 </div>
 
 <?php
-require_once("GeneralBD.php");
-$conBD = new GeneralBD();
 $limit = 10;
-$numrows = $conBD->numRows("SELECT * FROM productes");
+$numrows = $conBD->numRows("SELECT * FROM producte");
 $total_records = $numrows;  
 $total_pages = ceil($total_records / $limit); 
 ?>
