@@ -97,7 +97,7 @@
                                     <label class="btn btn-default">
                                         <input type="radio" id="hd" name="hd" value="Dona" onChange="comprovarCamps(this.id)"/> Dona
                                     </label>
-                                    <label class="btn">
+                                    <label class="btn" id="radioicon">
                                     	<span id="hdicon" class="form-control-feedback glyphicon"></span>
                                     </label>
                                 </div>

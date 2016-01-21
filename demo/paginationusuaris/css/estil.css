@@ -133,17 +133,6 @@ p{
 	text-align:center;
 }
 
-/*Modificant una part estil de bootstrap que té un fallo amb icons*/
-.row .form-control-feedback{
-	right:15px;
-}
-
-/*També modificquem degut error bootstrap*/
-#radioicon{
-	left:20px;
-}
-
-/*Fer animació d'icon refresh*/
 .fa-spin-custom, .glyphicon-spin {
     -webkit-animation: spin 1000ms infinite linear;
     animation: spin 1000ms infinite linear;
