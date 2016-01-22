@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html lang="es-ES">
+<head>
+ <meta charset="UTF-8">
+ <title>Ejemplo jQuery</title>
+ <scriptsrc="http://code.jquery.com/jquery-1.9.0.js"></script>
+<script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
+ <script>
+ $(document).ready(function(){
+  $('.fade').click(function(){
+   $('#contenido').toggle('fade',1500); 
+  });
+  $('.explode').click(function(){
+   $('#contenido').toggle('explode',1500);
+  });
+ });
+ </script>
+ <style>
+ body{
+  text-align:center;
+ }
+ #contenido{
+  background: #2d2d2d;
+  border-radius: 20px;
+  height: 260px;
+  margin: auto;
+  opacity: 0.9;
+  width: 360px; 
+ } 
+ </style>
+</head>
+<body>
+ <header>
+  <h2>Ejemplo Simple de Efecto Desvanecer con jQuery
+              </h2>
+ </header>
+ <div><button class="fade">Desvanecer</button><button class="explode">Explotar</button></div>
+ <div id="contenido" style="display:none;">hollllaaa</div>
+</body>
+</html>

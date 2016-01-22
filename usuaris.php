@@ -40,37 +40,29 @@
 							require_once("GeneralBD.php");
 						
 							$GeneralBD = new GeneralBD();
-							$usuaris = $GeneralBD->runQuery("");
-							$estats = $GeneralBD->runQuery("");
-							$permisos = $GeneralBD->runQuery("");
+							$usuaris = $GeneralBD->runQuery("SELECT * FROM usuari");
+							$estats = $GeneralBD->runQuery("SELECT * FROM estat");
+							$permisos = $GeneralBD->runQuery("SELECT * FROM roles");
 							$GeneralBD->tancarBD();
-						
-                            include 'BD.php';
-                            $con=connectBD();
-                            $usuaris=actalitzarUsuarisBD($con);
-							$estats=actualitzarEstatsBD($con);
-							$permisos=actualitzarPermisosBD($con);
-                            //echo "\n".count($usuaris);
                             for($i=0;$i<count($usuaris);$i++){
-                                echo "<tr><td>". $usuaris[$i][1] ."</td><td> ". $usuaris[$i][2] ."</td><td> ". $usuaris[$i][3]." ". $usuaris[$i][4] ."</td><td><select name='selectestats' class='form-control'>";
+                                echo "<tr><td>". $usuaris[$i]['correu'] ."</td><td> ". $usuaris[$i]['nom'] ."</td><td> ". $usuaris[$i]['cognom1']." ". $usuaris[$i]['cognom2'] ."</td><td><select name='selectestats' class='form-control'>";
 								for($y=0;$y<count($estats);$y++){ 
-									if($estats[$y][0] == $usuaris[$i][10]){
-										echo "<option value='".$estats[$y][0]."' selected>".$estats[$y][1]."</option>";
+									if($estats[$y]['id'] == $usuaris[$i]['id_estat']){
+										echo "<option value='".$estats[$y]['id']."' selected>".$estats[$y]['descripcio']."</option>";
 									} else {
-								  		echo "<option value='".$estats[$y][0]."'>".$estats[$y][1]."</option>";
+								  		echo "<option value='".$estats[$y]['id']."'>".$estats[$y]['descripcio']."</option>";
 									}
 								  }
 								echo "</select></td><td><select name='selectpermis' class='form-control'>";
 								for($x=0;$x<count($permisos);$x++){ 
-									if($permisos[$x][0] == $usuaris[$i][8]){
-										echo "<option value='".$permisos[$x][0]."' selected>".$permisos[$x][1]."</option>";
+									if($permisos[$x]['id'] == $usuaris[$i]['id_roles']){
+										echo "<option value='".$permisos[$x]['id']."' selected>".$permisos[$x]['permisos']."</option>";
 									} else {
-								  		echo "<option value='".$permisos[$x][0]."'>".$permisos[$x][1]."</option>";
+								  		echo "<option value='".$permisos[$x]['id']."'>".$permisos[$x]['permisos']."</option>";
 									}
 								} 
 								echo "</select></td><td><button class='form-control btn-danger'>". Eliminar/*$usuaris[$i][0]*/ ."</button></td></tr>";
                             }
-                            tancarBD($con);
                         ?>
                     </table>
                 </div>
