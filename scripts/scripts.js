@@ -184,7 +184,9 @@ function comprovarCamps(id){
 				NetejarCampsSelect(prselect);
 				
 				$("#ciutat").val("");
-				$( "#ciutat" ).autocomplete({});
+				$( "#ciutat" ).autocomplete({
+  					disabled: true
+				});
 				
 				mostrar_notificacio_pnotify("Pais","Torna escullir!","error");
 				borrarEstilCamp("provinciaregio");
@@ -192,8 +194,13 @@ function comprovarCamps(id){
 				ficarErrorCamp(id);
 			break;
 			case 'provinciaregio':
+				$("#ciutat").val("");
+				$( "#ciutat" ).autocomplete({
+  					disabled: true
+				});
 				mostrar_notificacio_pnotify("Provincia/Regio","Torna escullir!","error");
 				ficarErrorCamp(id);
+				borrarEstilCamp("ciutat");
 			break;
 			case 'ciutat':
 				mostrar_notificacio_pnotify("Ciutat","No has introduit res!","error");
@@ -298,6 +305,7 @@ function comprovarCamps(id){
 				}
 				
 				$( "#ciutat" ).autocomplete({//mostrem ciutats quan escribim una paraula surt la llista de posibles 
+					disabled: false,
 					source: ciutat_pr,
 					change: function (event, ui) {
 						borrarEstilCamp("ciutatdiv", "ciutat");
