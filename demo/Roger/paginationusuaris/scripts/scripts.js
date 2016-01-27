@@ -5,7 +5,6 @@ $(document).ready(function() {
 	stack_context = { //lloc on volem ensenyar missatges 
 		"dir1": "down",
 		"dir2": "left",
-		"context": $("#qd_cos") //div del cos
 	};
 	
 	function netejar_avisats(){

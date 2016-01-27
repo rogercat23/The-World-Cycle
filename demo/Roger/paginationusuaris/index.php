@@ -51,48 +51,59 @@ $("#cos-contingut").load("pagination.php?page=1");
     });
 });
 
-function cridafuncioaccio(action,variable) {
+function cridafuncioaccio(accio,id) {
 		$("#iconcarregar").show();
-		alert(variable);
-		var queryString;
-		switch(action) {
-			case "add":
-				queryString = 'action='+action+'&txtmessage='+ $("#txtmessage").val();
+		var query;
+		switch(accio) {
+			case "afegir":
+				alert("Afegir");
+				query = 'accio='+accio+'&txtmessage='+ $("#txtmessage").val();
 			break;
-			case "edit":
-				queryString = 'action='+action+'&message_id='+ id + '&txtmessage='+ $("#txtmessage_"+id).val();
+			case "modificar":
+				alert("Modificar");
+				query = 'accio='+accio+'&message_id='+ id + '&txtmessage='+ $("#txtmessage_"+id).val();
 			break;
-			case "delete":
-				queryString = 'action='+action+'&message_id='+ id;
+			case "eliminar":
+				query = 'accio='+accio+'&id_usuari='+id;
+				//alert("Eliminar");
+			break;
+			case 'canviestat':
+				var id_estat = $("#selectestats"+id).select().val();//pillem que hem selecionat el permis que acaba de recullir 
+				query = 'accio='+accio+'&id_usuari='+id+'&id_estat='+id_estat;
+				//alert(id_estat);
+			break;
+			case 'canvirol':
+				var id_rol = $("#selectrol"+id).select().val();//pillem que hem selecionat el permis que acaba de recullir
+				query = 'accio='+accio+'&id_usuari='+id+'&id_rol='+id_rol;
+				//alert(id_rol);
 			break;
 		}
-		$("#iconcarregar").hide();
-			/* 
+
+		//Aqui fem accions que rebem i cridem a BD amb AJAX que permet fer sense carregar la pàgina i tal es com no haguessis passat res la pàgina.
 		$.ajax({
-		url: "crud_action.php",
-		data:queryString,
-		type: "POST",
-		success:function(data){
-			switch(action) {
-				case "add":
-					$("#comment-list-box").append(data);
-				break;
-				case "edit":
-					$("#message_" + id + " .message-content").html(data);
-					$('#frmAdd').show();
-					$("#message_"+id+" .btnEditAction").prop('disabled','');	
-				break;
-				case "delete":
-					$('#message_'+id).fadeOut();
-				break;
+			url: "accionsBDusuaris.php",
+			data:query,
+			type: "POST",
+			success:function(data){
+				switch(accio) { //que ha sortit bé i fem missatge cada acció
+					case 'eliminar':
+						mostrar_notificacio_pnotify("Usuari","Acaba d'eliminar correctament!","success");
+						$("#cos-contingut").load("pagination.php?page=1"); //tornem carregar la pagina aixi no mostra usuari que acabem d'eliminar
+					break;
+					case 'canviestat':
+						mostrar_notificacio_pnotify("Estat","Acaba de fer canvi correctament!","success");
+					break;
+					case "canvirol":
+						mostrar_notificacio_pnotify("Rol","Acaba de fer canvi correctament!","success");
+					break;
+				}
+				$("#iconcarregar").hide();
+			},
+			error:function (){ //Si surt malament hem de fer avis error
+				mostrar_notificacio_pnotify("AJAX BD","En general no funciona!","error");
+				$("#iconcarregar").hide();
 			}
-			$("#txtmessage").val('');
-			$("#loaderIcon").hide();
-		},
-		error:function (){
-			$("#loaderIcon").hide();
-			alert("ERROR: No existeix");
-		}*/
+		});
 	};
 </script>
 </html>

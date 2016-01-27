@@ -79,6 +79,22 @@ $(document).ready(function() {
 		netejar_avisats();//treure els divs que estan posats errors, success, warning
 		mostrar_notificacio_pnotify('Info: ','Acaba de netejar tots els camps del formulari!','');
 	});
+	
+	$('#ciutat').on('autocompletechange',function(){
+		var id = "ciutat";
+		borrarEstilCamp(id);
+		var vari = $("#"+id).val();
+		if($("#"+id).val().length == 0) {
+			mostrar_notificacio_pnotify("Ciutat","No has introduit res!","error");
+			ficarErrorCamp(id);
+		} else {
+			var regtext = /^([A-Z a-z ñàèòáéíóú]{2,60})$/;
+			var comp = expressioRegular(vari, regtext, id);
+			if(!comp){
+				mostrar_notificacio_pnotify("Ciutat","Han de ser caracters!","error");
+			}
+		}
+	});	
 });
 
 function mostrar_notificacio_pnotify(titol, missatge, tipus){ //crear finestres amb parametres per evitar crear cada vegada que vull notificar i envio aqui i ho fa directe. Només hauré de posar tipus de notificació, titol i missatge.
@@ -187,6 +203,7 @@ function comprovarCamps(id){
 				$( "#ciutat" ).autocomplete({
   					disabled: true
 				});
+				$("#ciutat").attr("disabled","true");
 				
 				mostrar_notificacio_pnotify("Pais","Torna escullir!","error");
 				borrarEstilCamp("provinciaregio");
@@ -198,6 +215,8 @@ function comprovarCamps(id){
 				$( "#ciutat" ).autocomplete({
   					disabled: true
 				});
+				$("#ciutat").attr("disabled","true");
+				
 				mostrar_notificacio_pnotify("Provincia/Regio","Torna escullir!","error");
 				ficarErrorCamp(id);
 				borrarEstilCamp("ciutat");
@@ -316,6 +335,10 @@ function comprovarCamps(id){
 						}
 					}
 				});
+				$("#ciutat").removeAttr("disabled");
+				$("#ciutat").val("");
+				borrarEstilCamp("ciutat");
+				
 				ficarCorrecteCamp(id);
 			break;
 			default://sexe, carrer

@@ -1,3 +1,6 @@
+<!-- META -->
+<meta charset="utf-8">
+
 <!-- ESTILS DE LA PÀGINA -->
 <link href="css/jquery-ui.css" rel="stylesheet">
 <link href="css/pnotify.custom.min.css" rel="stylesheet">

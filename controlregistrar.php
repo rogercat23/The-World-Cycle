@@ -123,7 +123,7 @@
 						echo "Ip de la andre&ccedil;a es ". $id_adreca; 
 					}
 					
-					$GeneralBD->InUpDe("INSERT INTO `usuari` (`correu`, `nom`, `cognom1`, `cognom2`, `hd`, `telefon`, `data_naix`, `data_inici`, `id_roles`, `id_adreca`, `id_contrassenya`, `id_estat`) VALUES ('".$correu."', '".$nom."', '".$cognom1."', '".$cognom2."', '".$hd."', '".$telefon."', '".$data_naix."', '".$data_inici."', '1', '".$id_adreca."', '".$id_pass."', '1');");
+					$GeneralBD->InUpDe("INSERT INTO `usuari` (`correu`, `nom`, `cognom1`, `cognom2`, `hd`, `telefon`, `data_naix`, `data_inici`, `id_roles`, `id_adreca`, `id_contrassenya`, `id_estat`) VALUES ('".$correu."', '".$nom."', '".$cognom1."', '".$cognom2."', '".$hd."', '".$telefon."', '".$data_naix."', '".$data_inici."', '3', '".$id_adreca."', '".$id_pass."', '1');");
 					
 					$GeneralBD->tancarBD();
 				?>
