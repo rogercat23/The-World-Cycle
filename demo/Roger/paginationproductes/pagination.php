@@ -5,8 +5,22 @@ $conBD = new GeneralBD();
 $limit = 10;  
 if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; };  
 $start_from = ($page-1) * $limit;  
-  
-$array = $conBD->runQuery("SELECT * FROM producte LIMIT $start_from, $limit"); 
+
+if(isset($_GET["id_select"])){
+	$id_cat = $_GET["id_select"];
+	if($id_cat == 0){
+		$array = $conBD->runQuery("SELECT * FROM producte LIMIT $start_from, $limit");
+	} else {
+		$array = $conBD->runQuery("SELECT * FROM producte p, te_prd_ctg t WHERE p.id=t.id_producte AND t.id_categoria='". $id_cat ."' LIMIT $start_from, $limit");
+	}
+} else {
+	$array = $conBD->runQuery("SELECT * FROM producte LIMIT $start_from, $limit");
+}
+
+if( empty( $array ) )
+{
+	echo "<div><center>No hi ha productes aquesta categoria de moment</center></div>"; 
+} else {
 ?>
 <table class="table table-bordered table-striped">  
 <thead>  
@@ -35,6 +49,7 @@ foreach($array as $k=>$v) {
             </tr>  
 <?php  
 };  
+}
 ?>  
 </tbody>  
 </table>

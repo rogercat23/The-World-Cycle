@@ -14,19 +14,17 @@
 		$conBD = new GeneralBD();
 		$categories = $conBD->runQuery("SELECT * FROM categoria");
 
-	?>
-
-    <select class="form-control" id="categoria" name="categoria" onChange="seleccionarcategoria(this.id)">
-        <option value="">Seleccionar una categoria...</option>
-        <?php
-            for($i=0;$i<count($categories);$i++){
-                echo "<option value='". $categories[$i]['id'] ."'>". $categories[$i]['nom'] ."</option>";
-            }
-        ?>
-    </select>
-
+	?>    
+    <select class="form-control" id="categoria" onChange="seleccionarcategoria(this.id)">
+            <option value="0">Totes les categories...</option>
+            <?php
+                for($i=0;$i<count($categories);$i++){
+                    echo "<option value='". $categories[$i]['id'] ."'>". $categories[$i]['nom'] ."</option>";
+                }
+            ?>
+        </select>
 <div id="iconcarregar" align="center"><h3><span class="glyphicon glyphicon-refresh .glyphicon-spin"></span> Carregant...</h3></div>
-<div id="cos-contingut" >
+<div id="cos-contingut">
 	
 </div>
 
@@ -108,5 +106,10 @@ function cridafuncioaccio(action,variable) {
 			alert("ERROR: No existeix");
 		}*/
 	};
+	
+	function seleccionarcategoria(id){
+		var id_select = $("#"+id).select().val();//Pillem id escullit d'una d'aquestes categories i enviem cap pagination que mostri nomes aquesta categoria amb GET
+		$("#cos-contingut").load("pagination.php?page=1&id_select="+id_select);
+	}
 </script>
 </html>
