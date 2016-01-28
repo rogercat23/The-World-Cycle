@@ -1,4 +1,4 @@
-<html>
+<!doctype html>
     <head>
         <title> The World Cycle Web </title>
         <?php
@@ -13,7 +13,7 @@
                 	<?php
 						include 'session.php';
 						if(isset($_SESSION['correu'])){
-                    		echo "<form action='' method='post'>Benvingut ". $_SESSION['nom']."\n<input type='submit' class='btn btn-danger btn-sm' value='Tancar sessi&oacute;' name='tancarsessio'></form>";
+                    		echo "<form action='' method='post'>Benvingut ". $_SESSION['nom']."\n<input type='submit' class='button btn-danger btn-sm' value='Tancar sessi&oacute;' name='tancarsessio'></form>";
 						} else {
 							header('Location: index.php'); //Farem tornar index.php si hem sortit de sessió
 						}
@@ -31,41 +31,105 @@
                 </ul>
             </div>
             <div id="qd_cos">
-				<div>
-                    <p> Usuaris </p>
-                    
-                    <table class="table table-striped">
-                        <thead><tr><th>Correu</th><th>Nom</th><th>Cognoms</th><th>Estat</th><th>Permisos</th><th></th></tr></thead>
-                        <?php
-							require_once("GeneralBD.php");
-						
-							$GeneralBD = new GeneralBD();
-							$usuaris = $GeneralBD->runQuery("SELECT * FROM usuari");
-							$estats = $GeneralBD->runQuery("SELECT * FROM estat");
-							$permisos = $GeneralBD->runQuery("SELECT * FROM roles");
-							$GeneralBD->tancarBD();
-                            for($i=0;$i<count($usuaris);$i++){
-                                echo "<tr><td>". $usuaris[$i]['correu'] ."</td><td> ". $usuaris[$i]['nom'] ."</td><td> ". $usuaris[$i]['cognom1']." ". $usuaris[$i]['cognom2'] ."</td><td><select name='selectestats' class='form-control'>";
-								for($y=0;$y<count($estats);$y++){ 
-									if($estats[$y]['id'] == $usuaris[$i]['id_estat']){
-										echo "<option value='".$estats[$y]['id']."' selected>".$estats[$y]['descripcio']."</option>";
-									} else {
-								  		echo "<option value='".$estats[$y]['id']."'>".$estats[$y]['descripcio']."</option>";
+            <p>Usuaris</p>
+            <div id="iconcarregar" align="center"><h1><span class="glyphicon glyphicon-refresh glyphicon-spin"></span> Carregant...</h1></div>
+            <div id="cos-contingut" >
+                
+            </div>
+				<?php
+					require_once("GeneralBD.php");
+					$conBD = new GeneralBD();
+					$limit = 8;
+					$numrows = $conBD->numRows("SELECT * FROM usuari");
+					$total_records = $numrows;  
+					$total_pages = ceil($total_records / $limit); 
+					?>
+					<div align="center">
+					<ul class='pagination text-center' id="pagination">
+					<?php if(!empty($total_pages)):for($i=1; $i<=$total_pages; $i++):  
+								if($i == 1):?>
+								<li class='active'  id="<?php echo $i;?>"><a href='paginationUsuaris.php?page=<?php echo $i;?>'><?php echo $i;?></a></li> 
+								<?php else:?>
+								<li id="<?php echo $i;?>"><a href='paginationUsuaris.php?page=<?php echo $i;?>'><?php echo $i;?></a></li>
+							<?php endif;?>          
+					<?php endfor;endif;?> 
+						</div> 
+					</div>
+					</body>
+					<script>
+					$(document).ready(function() {
+					$("#cos-contingut").load("paginationUsuaris.php?page=1");
+						$("#iconcarregar").hide();
+						$("#pagination li").live('click',function(e){
+						e.preventDefault();
+							$("#cos-contingut").hide();
+							$("#iconcarregar").show();    
+							$("#pagination li").removeClass('active');
+							$(this).addClass('active');
+							var pageNum = this.id;
+							$("#cos-contingut").load("paginationUsuaris.php?page=" + pageNum);
+							$("#iconcarregar").hide();
+							$("#cos-contingut").show();
+						});
+					});
+					
+					function cridafuncioaccio(accio,id) {
+							$("#iconcarregar").show();
+							var query;
+							switch(accio) {
+								case "afegir":
+									alert("Afegir");
+									query = 'accio='+accio+'&txtmessage='+ $("#txtmessage").val();
+								break;
+								case "modificar":
+									alert("Modificar");
+									query = 'accio='+accio+'&message_id='+ id + '&txtmessage='+ $("#txtmessage_"+id).val();
+								break;
+								case "eliminar":
+									query = 'accio='+accio+'&id_usuari='+id;
+									//alert("Eliminar");
+								break;
+								case 'canviestat':
+									var id_estat = $("#selectestats"+id).select().val();//pillem que hem selecionat el permis que acaba de recullir 
+									query = 'accio='+accio+'&id_usuari='+id+'&id_estat='+id_estat;
+									//alert(id_estat);
+								break;
+								case 'canvirol':
+									var id_rol = $("#selectrol"+id).select().val();//pillem que hem selecionat el permis que acaba de recullir
+									query = 'accio='+accio+'&id_usuari='+id+'&id_rol='+id_rol;
+									//alert(id_rol);
+								break;
+							}
+					
+							//Aqui fem accions que rebem i cridem a BD amb AJAX que permet fer sense carregar la pàgina i tal es com no haguessis passat res la pàgina.
+							$.ajax({
+								url: "accionsBDusuaris.php",
+								data:query,
+								type: "POST",
+								success:function(data){
+									switch(accio) { //que ha sortit bé i fem missatge cada acció
+										case 'eliminar':
+											mostrar_notificacio_pnotify("Usuari","Acaba d'eliminar correctament!","success");
+											$("#cos-contingut").load("paginationUsuaris.php?page=1"); //tornem carregar la pagina aixi no mostra usuari que acabem d'eliminar
+										break;
+										case 'canviestat':
+											mostrar_notificacio_pnotify("Estat","Acaba de fer canvi correctament!","success");
+										break;
+										case "canvirol":
+											mostrar_notificacio_pnotify("Rol","Acaba de fer canvi correctament!","success");
+										break;
 									}
-								  }
-								echo "</select></td><td><select name='selectpermis' class='form-control'>";
-								for($x=0;$x<count($permisos);$x++){ 
-									if($permisos[$x]['id'] == $usuaris[$i]['id_roles']){
-										echo "<option value='".$permisos[$x]['id']."' selected>".$permisos[$x]['permisos']."</option>";
-									} else {
-								  		echo "<option value='".$permisos[$x]['id']."'>".$permisos[$x]['permisos']."</option>";
-									}
-								} 
-								echo "</select></td><td><button class='form-control btn-danger'>". Eliminar/*$usuaris[$i][0]*/ ."</button></td></tr>";
-                            }
-                        ?>
-                    </table>
-                </div>
+									$("#iconcarregar").hide();
+								},
+								error:function (){ //Si surt malament hem de fer avis error
+									mostrar_notificacio_pnotify("AJAX BD","En general no funciona!","error");
+									$("#iconcarregar").hide();
+								}
+							});
+						};
+					</script>
+            
+            	
             </div>
         </div>
     </body>

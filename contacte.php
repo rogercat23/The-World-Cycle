@@ -1,4 +1,4 @@
-<html>
+<!doctype html>
     <head>
         <title> The World Cycle Web </title>
         <?php

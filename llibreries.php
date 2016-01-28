@@ -11,6 +11,7 @@
 <!-- LLIBRERIES DE LA PÀGINA -->
 <script src="lib/external/jquery/jquery.js"></script>
 <script src="lib/jquery-ui.js"></script>
+<script src="lib/jquery-migrate-1.2.1.min.js"></script>
 <script src="lib/pnotify.custom.min.js"></script>
 <script src="lib/bootstrap.min.js"></script>
 <script src="scripts/scripts.js"></script>
