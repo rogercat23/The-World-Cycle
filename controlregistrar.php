@@ -123,8 +123,9 @@
 						echo "Ip de la andre&ccedil;a es ". $id_adreca; 
 					}
 					
-					$GeneralBD->InUpDe("INSERT INTO `usuari` (`correu`, `nom`, `cognom1`, `cognom2`, `hd`, `telefon`, `data_naix`, `data_inici`, `id_roles`, `id_adreca`, `id_contrassenya`, `id_estat`) VALUES ('".$correu."', '".$nom."', '".$cognom1."', '".$cognom2."', '".$hd."', '".$telefon."', '".$data_naix."', '".$data_inici."', '3', '".$id_adreca."', '".$id_pass."', '1');");
-					
+					$GeneralBD->InUpDe("INSERT INTO `usuari` (`correu`, `nom`, `cognom1`, `cognom2`, `h/d`, `telefon`, `data_naix`, `data_inici`, `id_roles`, `id_adreca`, `id_contrassenya`, `id_estat`) VALUES ('".$correu."', '".$nom."', '".$cognom1."', '".$cognom2."', '".$hd."', '".$telefon."', '".$data_naix."', '".$data_inici."', '3', '".$id_adreca."', '".$id_pass."', '1');");
+					//INSERT INTO `usuari` (`correu`, `nom`, `cognom1`, `cognom2`, `h/d`, `telefon`, `data_naix`, `data_inici`, `id_roles`, `id_adreca`, `id_contrassenya`, `id_estat`) VALUES ('martineta@gmail.com', 'Martina', 'Niubó', 'Torrelles', 'Dona', '123123123', '1996-01-31', '2016-01-28', '1', '22', '37', '1');
+
 					$GeneralBD->tancarBD();
 				?>
             </div>
