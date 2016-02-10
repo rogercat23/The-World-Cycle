@@ -17,7 +17,7 @@
 					?>
                     	<script>
 							alert(" <?php echo $_SESSION['error']; ?> ");
-							mostrar_notificacio_pnotify("Alerta","<?php echo $_SESSION['error']; ?>","error");
+							$(function(){mostrar_notificacio_pnotify("Alerta","<?php echo $_SESSION['error']; ?>","error");});
 						</script>
                     <?php
 							unset($_SESSION['error']);
