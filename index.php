@@ -23,7 +23,7 @@
 							unset($_SESSION['error']);
 						}
 						if(isset($_SESSION['correu'])){
-                    		echo "<form action='' method='post'>Benvingut ". $_SESSION['nom']."\n<input type='submit' class='button btn-danger btn-sm' value='Tancar sessi&oacute;' name='tancarsessio'></form>";
+                    		echo "<form action='' method='post'><span class='glyphicon glyphicon-user' aria-hidden='true'></span> Benvingut ". $_SESSION['nom']." ". $_SESSION['cognoms'] ."\n<button type='submit' class='button btn-danger btn-sm' name='tancarsessio'><span class='glyphicon glyphicon-off' aria-hidden='true'></span> Tancar sessi&oacute;</button></form>";
 						} else {
 					?>
                 	<div class="row">

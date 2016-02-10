@@ -21,6 +21,7 @@
 				if($usuaris[$i]['correu']==$correu && $usuaris[$i]['password']==$password){					
 					$_SESSION['correu'] = $usuaris[$i]['correu'];
 					$_SESSION['nom'] = $usuaris[$i]['nom'];
+					$_SESSION['cognoms'] = $usuaris[$i]['cognom1'] ." ". $usuaris[$i]['cognom2'];
 				}
 			}
 			if(!isset($_SESSION['correu'])){

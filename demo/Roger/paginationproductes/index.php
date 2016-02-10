@@ -111,5 +111,10 @@ function cridafuncioaccio(action,variable) {
 		var id_select = $("#"+id).select().val();//Pillem id escullit d'una d'aquestes categories i enviem cap pagination que mostri nomes aquesta categoria amb GET
 		$("#cos-contingut").load("pagination.php?page=1&id_select="+id_select);
 	}
+	
+	function clickMostrarAmagar(vari){
+		$('#p'+vari.id).slideToggle(500);
+		alert($('#p'+vari.id).is('hide'));
+	}
 </script>
 </html>

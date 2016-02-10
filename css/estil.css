@@ -63,13 +63,14 @@ body{
     width:100%;
     height:100px;
 	z-index:1;
+	padding-bottom:110px;
 }
 
 /*DIV del cos*/
 #qd_cos{
     position: absolute;
     width:100%;
-    top:100px;
+    top:110px;
 }
 
 /*DIV del peu*/
@@ -167,4 +168,19 @@ p{
         -webkit-transform: rotate(359deg);
         transform: rotate(359deg);
     }
+}
+
+.display_block{
+	display:none;
+}
+
+#plus_up{
+	position:relative;
+	left:10px;
+	margin:10px;
+}
+
+/*Modal per canviar una mica estil*/
+.header-title-modal{
+	text-align:center;	
 }

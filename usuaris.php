@@ -3,7 +3,20 @@
         <title> The World Cycle Web </title>
         <?php
 			include 'llibreries.php';
+			require_once("GeneralBD.php");
+			
+			$GeneralBD = new GeneralBD();
+			$paisos = $GeneralBD->runQuery("SELECT * FROM pais");
+			$provinciesregions = $GeneralBD->runQuery("SELECT * FROM provinciaregio");
+			$ciutats = $GeneralBD->runQuery("SELECT * FROM ciutat");
+			$correus = $GeneralBD->runQuery1("SELECT correu FROM usuari");
+			$GeneralBD->tancarBD();
 		?>
+        <script type="text/javascript">
+			var provinciesregions = <?php echo json_encode($provinciesregions);?>; //transformem per poder passar select a provincies un cop escullit del pais
+			var ciutats = <?php echo json_encode($ciutats);?>; //transformem tipus json que es array del javascript
+			var correus = <?php echo json_encode($correus);?> //igual ciutats (anterior) amb correus
+		</script>
     </head>
     <body>
         <div class="cos">
@@ -13,7 +26,7 @@
                 	<?php
 						include 'session.php';
 						if(isset($_SESSION['correu'])){
-                    		echo "<form action='' method='post'>Benvingut ". $_SESSION['nom']."\n<input type='submit' class='button btn-danger btn-sm' value='Tancar sessi&oacute;' name='tancarsessio'></form>";
+                    		echo "<form action='' method='post'><span class='glyphicon glyphicon-user' aria-hidden='true'></span> Benvingut ". $_SESSION['nom']." ". $_SESSION['cognoms'] ."\n<button type='submit' class='button btn-danger btn-sm' name='tancarsessio'><span class='glyphicon glyphicon-off' aria-hidden='true'></span> Tancar sessi&oacute;</button></form>";
 						} else {
 							header('Location: index.php'); //Farem tornar index.php si hem sortit de sessió
 						}
@@ -32,9 +45,11 @@
             </div>
             <div id="qd_cos">
             <p>Usuaris</p>
-            <div id="iconcarregar" align="center"><h1><span class="glyphicon glyphicon-refresh glyphicon-spin"></span> Carregant...</h1></div>
-            <div id="cos-contingut" >
-                
+            <div id="plus_up">
+            	<button type="button"  class="btn btn-primary" data-toggle="modal" data-target="#myModalafegirusuari"><span class='glyphicon glyphicon-plus' aria-hidden='true'></span><span class='glyphicon glyphicon-user' aria-hidden='true'></span> Usuari</button>
+            </div>
+            <div id="iconcarregarusuaris" align="center"><h1><span class="glyphicon glyphicon-refresh glyphicon-spin"></span> Carregant...</h1></div>
+            <div id="cos-contingut-usuaris" >
             </div>
 				<?php
 					require_once("GeneralBD.php");
@@ -45,7 +60,7 @@
 					$total_pages = ceil($total_records / $limit); 
 					?>
 					<div align="center">
-					<ul class='pagination text-center' id="pagination">
+					<ul class='pagination text-center' id="paginationusuaris">
 					<?php if(!empty($total_pages)):for($i=1; $i<=$total_pages; $i++):  
 								if($i == 1):?>
 								<li class='active'  id="<?php echo $i;?>"><a href='paginationUsuaris.php?page=<?php echo $i;?>'><?php echo $i;?></a></li> 
@@ -53,84 +68,131 @@
 								<li id="<?php echo $i;?>"><a href='paginationUsuaris.php?page=<?php echo $i;?>'><?php echo $i;?></a></li>
 							<?php endif;?>          
 					<?php endfor;endif;?> 
-						</div> 
-					</div>
-					</body>
-					<script>
-					$(document).ready(function() {
-					$("#cos-contingut").load("paginationUsuaris.php?page=1");
-						$("#iconcarregar").hide();
-						$("#pagination li").live('click',function(e){
-						e.preventDefault();
-							$("#cos-contingut").hide();
-							$("#iconcarregar").show();    
-							$("#pagination li").removeClass('active');
-							$(this).addClass('active');
-							var pageNum = this.id;
-							$("#cos-contingut").load("paginationUsuaris.php?page=" + pageNum);
-							$("#iconcarregar").hide();
-							$("#cos-contingut").show();
-						});
-					});
-					
-					function cridafuncioaccio(accio,id) {
-							$("#iconcarregar").show();
-							var query;
-							switch(accio) {
-								case "afegir":
-									alert("Afegir");
-									query = 'accio='+accio+'&txtmessage='+ $("#txtmessage").val();
-								break;
-								case "modificar":
-									alert("Modificar");
-									query = 'accio='+accio+'&message_id='+ id + '&txtmessage='+ $("#txtmessage_"+id).val();
-								break;
-								case "eliminar":
-									query = 'accio='+accio+'&id_usuari='+id;
-									//alert("Eliminar");
-								break;
-								case 'canviestat':
-									var id_estat = $("#selectestats"+id).select().val();//pillem que hem selecionat el permis que acaba de recullir 
-									query = 'accio='+accio+'&id_usuari='+id+'&id_estat='+id_estat;
-									//alert(id_estat);
-								break;
-								case 'canvirol':
-									var id_rol = $("#selectrol"+id).select().val();//pillem que hem selecionat el permis que acaba de recullir
-									query = 'accio='+accio+'&id_usuari='+id+'&id_rol='+id_rol;
-									//alert(id_rol);
-								break;
-							}
-					
-							//Aqui fem accions que rebem i cridem a BD amb AJAX que permet fer sense carregar la pàgina i tal es com no haguessis passat res la pàgina.
-							$.ajax({
-								url: "accionsBDusuaris.php",
-								data:query,
-								type: "POST",
-								success:function(data){
-									switch(accio) { //que ha sortit bé i fem missatge cada acció
-										case 'eliminar':
-											mostrar_notificacio_pnotify("Usuari","Acaba d'eliminar correctament!","success");
-											$("#cos-contingut").load("paginationUsuaris.php?page=1"); //tornem carregar la pagina aixi no mostra usuari que acabem d'eliminar
-										break;
-										case 'canviestat':
-											mostrar_notificacio_pnotify("Estat","Acaba de fer canvi correctament!","success");
-										break;
-										case "canvirol":
-											mostrar_notificacio_pnotify("Rol","Acaba de fer canvi correctament!","success");
-										break;
-									}
-									$("#iconcarregar").hide();
-								},
-								error:function (){ //Si surt malament hem de fer avis error
-									mostrar_notificacio_pnotify("AJAX BD","En general no funciona!","error");
-									$("#iconcarregar").hide();
-								}
-							});
-						};
-					</script>
-            
-            	
+                	</div> 
             </div>
-        </div>
+            
+             <!-- Modal -->
+                <div class="modal fade" id="myModalafegirusuari" tabindex="-1" role="dialog" aria-labelledby="myModalLabelafegirusuari" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header header-title-modal">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4>Afegir un usuari</h4>
+                      </div>
+                      <div class="modal-body">
+                		<form  action="controlregistrar.php" method="post" id="formulariregistrar">
+                              <div class="form-group">
+                                <label>Usuari:</label>
+                                <div id="correudiv" class="has-feedback">
+                                    <input type="email" class="form-control" id="correu" name="correu" placeholder="Correu" onChange="comprovarCamps(this.id)" title="Es obligatori!" required><span id="correuicon" class="form-control-feedback glyphicon"></span></br>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-6 has-feedback" id="passworddiv">
+                                        <input type="password" class="form-control" id="password" name="password" placeholder="Password" onChange="comprovarCamps(this.id)"  title="Es obligatori!" required><span id="passwordicon" class="form-control-feedback glyphicon"></span>
+                                    </div>
+                                    <div class="col-xs-6 has-feedback" id="password2div">
+                                        <input type="password" class="form-control" id="password2"  name="password2" placeholder="Repetir password" onChange="comprovarCamps(this.id)" title="Es obligatori!" required><span id="password2icon" class="form-control-feedback glyphicon"></span>
+                                    </div>
+                               </div>
+                              </div>
+                              <div class="form-group">
+                                <label>Dades personals:</label>
+                                <div class="row">
+                                    <div id="nomdiv" class="col-xs-6 has-feedback">
+                                    <input type="text" class="form-control" id="nom" name="nom" placeholder="Nom" onChange="comprovarCamps(this.id)" title="Es obligatori!" required><span id="nomicon" class="form-control-feedback glyphicon"></span></br>
+                                    </div>
+                                    <div id="cognom1div" class="col-xs-6 has-feedback">
+                                        <input type="text" class="form-control" id="cognom1" name="cognom1" placeholder="Primer cognom" onChange="comprovarCamps(this.id)" title="Es obligatori!" required><span id="cognom1icon" class="form-control-feedback glyphicon"></span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-6 has-feedback" id="cognom2div">
+                                        <input type="text" class="form-control" id="cognom2" name="cognom2" placeholder="Segon cognom" onChange="comprovarCamps(this.id)" title="Es obligatori!" required><span id="cognom2icon" class="form-control-feedback glyphicon"></span>
+                                    </div>
+                                    <div class="col-xs-6 has-feedback c-inputs-stacked" id="hddiv">
+                                        <div class="btn-group" data-toggle="buttons">
+                                            <label class="btn btn-default">
+                                                <input type="radio" id="hd" name="hd" value="Home" onChange="comprovarCamps(this.id)" title="Es obligatori!" required/> Home
+                                            </label> 
+                                            <label class="btn btn-default">
+                                                <input type="radio" id="hd" name="hd" value="Dona" onChange="comprovarCamps(this.id)"/> Dona
+                                            </label>
+                                            <label class="btn" id="radioicon">
+                                                <span id="hdicon" class="form-control-feedback glyphicon"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                               </div></br>
+                               <div class="row">
+                                    <div class="col-xs-6 has-feedback" id="telefondiv">
+                                        <input type="text" class="form-control" id="telefon" name="telefon" placeholder="Tel&eacute;fon" onChange="comprovarCamps(this.id)"  title="Es obligatori!" required><span id="telefonicon" class="form-control-feedback glyphicon"></span>
+                                    </div>
+                                    <div class="col-xs-6 has-feedback" id="data_naixdiv">
+                                        <input type="text" class="form-control" id="data_naix" name="data_naix" placeholder="Data de naixament" onChange="comprovarCamps(this.id)"  title="Es obligatori!" required><span id="data_naixicon" class="form-control-feedback glyphicon"></span>
+                                    </div>
+                               </div>
+                              </div>
+                              <div class="form-group">
+                                <label>Adre&ccedil;a:</label>
+                                <div class="row">
+                                    <div id="paisdiv" class="col-xs-6 has-feedback">
+                                        <select class="form-control" id="pais" name="pais" onChange="comprovarCamps(this.id)" title="Es obligatori!" required>
+                                            <option value="">Pais</option>
+                                            <?php
+                                                for($i=0;$i<count($paisos);$i++){
+                                                    echo "<option value='". $paisos[$i]['id'] ."'>". $paisos[$i]['nom'] ."</option>";
+                                                }
+                                            ?>
+                                        </select>
+                                        <span id="paisicon" class="form-control-feedback glyphicon"></span>
+                                    </div>
+                                    <div class="col-xs-6 has-feedback" id="provinciaregiodiv">
+                                        <select class="form-control" id="provinciaregio" name="provinciaregio" onChange="comprovarCamps(this.id)" title="Es obligatori!" required>
+                                            <option value="">Provincia/Regio</option>
+                                            
+                                        </select><span id="provinciaregioicon" class="form-control-feedback glyphicon"></span>
+                                    </div>
+                               </div></br>
+                                <div class="row">
+                                     <div class="col-xs-8 has-feedback" id="ciutatdiv">
+                                        <input type="text" class="form-control" id="ciutat" name="ciutat" placeholder="Ciutat" title="Es obligatori!" disabled="true" required><span id="ciutaticon" class="form-control-feedback glyphicon"></span>
+                                      </div>
+                                      <div class="col-xs-4 has-feedback" id="postaldiv">
+                                        <input type="text" class="form-control" id="postal" name="postal" placeholder="Postal" onChange="comprovarCamps(this.id)" title="Es obligatori!" required><span id="postalicon" class="form-control-feedback glyphicon"></span>
+                                      </div>
+                                </div></br>
+                                <div id="carrerdiv" class="has-feedback">
+                                    <input type="text" class="form-control" id="carrer" name="carrer" placeholder="Carrer" onChange="comprovarCamps(this.id)" title="Es obligatori!" required><span id="carrericon" class="form-control-feedback glyphicon"></span></br>
+                                </div>
+                                 <div class="row">
+                                     <div class="col-xs-4 has-feedback" id="numerodiv">
+                                        <input type="text" class="form-control" id="numero" name="numero" placeholder="N&uacute;mero" onChange="comprovarCamps(this.id)" title="Es obligatori!" required><span id="numeroicon" class="form-control-feedback glyphicon"></span>
+                                      </div>
+                                      <div class="col-xs-4 has-feedback" id="pisdiv">
+                                        <input type="text" class="form-control" id="pis" name="pis" placeholder="Pis" onChange="comprovarCamps(this.id)"><span id="pisicon" class="form-control-feedback glyphicon"></span>
+                                      </div>
+                                      <div class="col-xs-4 has-feedback" id="portadiv">
+                                        <input type="text" class="form-control" id="porta" name="porta" placeholder="Porta" onChange="comprovarCamps(this.id)"><span id="portaicon" class="form-control-feedback glyphicon"></span>
+                                      </div>
+                                  </div>  
+                              </div>
+                              <center>
+                                  <button type="submit" class="btn btn-success">Registrar</button>
+                                  <button type="reset" class="btn btn-danger" id="netejarformregistrar">Netejar</button>
+                              </center>
+                            </form>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel·la</button>
+                        <button type="button" onclick="cridafuncioaccio('afegir',0)" class="btn btn-primary">Afegir usuari</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                
+                
+                
+                
     </body>
 </html>

@@ -8,7 +8,18 @@ $(document).ready(function() {
 		"context": $("#qd_cos") //div del cos
 	};
 	
-	function netejar_avisats(){
+	function netejar_avisats_contacte(){
+		var ids = ["correu", "nomc", "cognoms", "tema", "comentari"];
+		for($i=0;$i<ids.length;$i++){//estalviem repetir i cridem per netejar amb array sense repetir res que es més curt i més net.
+			borrarEstilCamp(ids[$i]);
+			if(tipus_input = $("#"+ ids[$i]).attr("type")=="radio"){ //per poder borrar boto selecionat amb estil active com format btn
+				//alert($("#"+ ids[$i]).attr("name"));
+				var id_escullit_radio = $('input:radio[name="'+ ids[$i] +'"]:checked').parent("label").removeClass("active");
+			}
+		}
+	}
+	
+	function netejar_avisats_registrar(){
 		var ids = ["correu", "password", "password2", "nom", "cognom1", "cognom2", "hd", "telefon", "data_naix", "pais", "provinciaregio", "ciutat", "postal", "carrer", "numero", "pis", "porta"];
 		for($i=0;$i<ids.length;$i++){//estalviem repetir i cridem per netejar amb array sense repetir res que es més curt i més net.
 			borrarEstilCamp(ids[$i]);
@@ -48,6 +59,12 @@ $(document).ready(function() {
 		minDate: '-100Y', //minim es fa 100 anys
 		maxDate: 'today' //avui es màxim que no podrem triar demà que es tracta la data de neixament
 	 });
+	 
+	 $( "#chdata_naix" ).datepicker({ 
+		dateFormat: 'dd/mm/yy', //canvio format per evitar donar error d'insertar a basde de dades que ha de ser aquest format 1991-3-25 (aaaa-mm-dd) i format es yy-mm-dd
+		minDate: '-100Y', //minim es fa 100 anys
+		maxDate: 'today' //avui es màxim que no podrem triar demà que es tracta la data de neixament
+	 });
 	
 	$("#formulariregistrar").submit(function(){//La hora de clicar per afegir, comprovarem que tots els camps estiguin bé i enviar, si es contrari no deixarem enviar i farem avis.
 		var correcte = true;	
@@ -75,9 +92,33 @@ $(document).ready(function() {
 		return correcte;
 	});
 	
-	$("#netejarform").click(function(){
-		netejar_avisats();//treure els divs que estan posats errors, success, warning
+	$("#formularicontacte").submit(function(){//La hora de clicar per afegir, comprovarem que tots els camps estiguin bé i enviar, si es contrari no deixarem enviar i farem avis.
+		alert("Rebut des de formulari submit del contacte");
+		var correcte = true;	
+		var cont = 0;
+		var divs = ["correudiv", "nomcdiv", "cognomsdiv", "temadiv", "comentaridiv"];
+		for(i=0;i<divs.length;i++){
+			if($("#"+divs[i]).hasClass('has-error') || $("#"+divs[i]).hasClass('has-warning')){ //si te classe has-error avisem que s'ha de revisar que no té bé
+				cont++;
+				correcte = false;
+			}	
+		}
+		
+		if(cont!=0){
+			mostrar_notificacio_pnotify('Camps Errors: ','S\' ha de revisar '+ cont +' camp/s que t&eacute; error o alertat.','error');
+		}
+		//return false;
+		return correcte;
+	});
+	
+	$("#netejarformregistrar").click(function(){
+		netejar_avisats_registrar();//treure els divs que estan posats errors, success, warning
 		mostrar_notificacio_pnotify('Info: ','Acaba de netejar tots els camps del formulari!','');
+	});
+	
+	$("#netejarformcontacte").click(function(){
+		netejar_avisats_contacte();//treure els divs que estan posats errors, success, warning
+		mostrar_notificacio_pnotify('Info: ','Acaba de netejar tots els camps del contacte!','');
 	});
 	
 	$('#ciutat').on('autocompletechange',function(){
@@ -95,6 +136,22 @@ $(document).ready(function() {
 			}
 		}
 	});	
+	
+	//Arranca la pàgina usuaris per demostrar per poder fer funcionar per pàgina a pàgina
+	$("#cos-contingut-usuaris").load("paginationUsuaris.php?page=1");
+	$("#iconcarregarusuaris").hide();
+	$("#paginationusuaris li").live('click',function(e){
+	e.preventDefault();
+		$("#cos-contingut-usuaris").hide();
+		$("#iconcarregarusuaris").show();    
+		$("#paginationusuaris li").removeClass('active');
+		$(this).addClass('active');
+		var pageNum = this.id;
+		$("#cos-contingut-usuaris").load("paginationUsuaris.php?page=" + pageNum);
+		$("#iconcarregarusuaris").hide();
+		$("#cos-contingut-usuaris").show();
+	});
+	
 });
 
 function mostrar_notificacio_pnotify(titol, missatge, tipus){ //crear finestres amb parametres per evitar crear cada vegada que vull notificar i envio aqui i ho fa directe. Només hauré de posar tipus de notificació, titol i missatge.
@@ -157,7 +214,7 @@ function expressioRegular(vari, regtext, id){
 	}
 }
 
-//Funció per comprovar tots els camps que siguin correcte abans d'enviar a BD o fer una consulta
+//Funció per comprovar tots els camps que siguin correcte abans d'enviar a BD o fer una consulta des de les pàgines registrar i contacte
 function comprovarCamps(id){
 	var vari = $("#"+id).val();
 	borrarEstilCamp(id);
@@ -237,6 +294,14 @@ function comprovarCamps(id){
 				mostrar_notificacio_pnotify("Numero","No has introduit res!","error");
 				ficarErrorCamp(id);
 			break;
+			case 'tema':
+				mostrar_notificacio_pnotify("Tema","No has introduit res!","error");
+				ficarErrorCamp(id);
+			break;
+			case 'comentari':
+				mostrar_notificacio_pnotify("Comentari","No has introduit res!","error");
+				ficarErrorCamp(id);
+			break;
 		}
 	} else {
 		switch(id){
@@ -245,21 +310,13 @@ function comprovarCamps(id){
 			break;
 			case 'password':
 				var regtext = /(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
-				if($("#passworddiv").hasClass("has-error")){//Si canviem un altre cop la primera i surt malament, hem de posar malament la segona també
-					if( $("#password2div").hasClass("has-success")){
-						borrarEstilCamp("password2");
-						ficarErrorCamp("password2");//Per mostrar que no es el mateix que la primera hem canviat
-					} else {
-							
-					}
-				}
 			break;
 			case 'password2':
 				var pas1 = $("#password").val();
 				var pas2 = $("#password2").val();
 				//alert(pas1 +" "+ pas2);
 				if($("#passworddiv").hasClass("has-error")){
-					mostrar_notificacio_pnotify('La primera contrassenya!','La primera contrassenya no té format que demana, torna introduir que compleixi les normes.','error' );
+					mostrar_notificacio_pnotify('La primera contrassenya!','La primera contrassenya no t&eacute; format que demana, torna introduir que compleixi les normes.','error' );
 					ficarErrorCamp("password2");
 				} else { 
 					if( pas1 != pas2 ){
@@ -275,6 +332,8 @@ function comprovarCamps(id){
 				}
 			break;
 			case 'nom':
+			case 'nomc':
+			case 'cognoms':
 			case 'cognom1':
 			case 'cognom2':
 			case 'ciutat':
@@ -354,8 +413,15 @@ function comprovarCamps(id){
 					break;
 					case 'password':
 						mostrar_notificacio_pnotify("Password","Ha de tenir m&eacute;s un caracter min&uacute;scula, un caracter mayuscula, un n&uacute;mero o un caracter especial i ha de tenir m&eacute;s 8 caracters total!", "error");
+						//Sempre quan acabem introduir la primer contrassenya si la segona contrassenya estava ja posada sempre borarem encara estava igual (ara diferent i etc) i malament o avisat. Sempre tindrà tornar introduir la segona contrasenya
+						borrarEstilCamp("password2");
+						$("#password2").val("");
+
 					break;
 					case 'nom':
+						mostrar_notificacio_pnotify("Nom","Han de ser caracters!","error");
+					break;
+					case 'nomc':
 						mostrar_notificacio_pnotify("Nom","Han de ser caracters!","error");
 					break;
 					case 'cognom1':
@@ -363,6 +429,9 @@ function comprovarCamps(id){
 					break;
 					case 'cognom2':
 						mostrar_notificacio_pnotify("Segon cognom","Han de ser caracters!","error");
+					break;
+					case 'cognoms':
+						mostrar_notificacio_pnotify("Cognoms","Han de ser caracters!","error");
 					break;
 					case 'telefon':
 						mostrar_notificacio_pnotify("Tel&ecirc;fon","Ha de tenir nou numeros!","error");
@@ -389,12 +458,16 @@ function comprovarCamps(id){
 			} else {
 				switch(id){
 					case 'correu':
-						for(u=0;u<correus.length;u++){ //comprovar tots els correus que tenim BD i comprar que tenim posat actualment per evitar tenir un altre igual
-							if(vari==correus[u]){
-								borrarEstilCamp(id);
-								ficarWarningCamp(id);
-								mostrar_notificacio_pnotify("Correu","Ja tenim registrat aquest correu!","error");
-							}
+						if (typeof correus == "undefined"){ //Per evitar donar error la console que tenim dos formularis un necessitem que comprobi arribara amb variable però altre no cal per tant no haura definit el variable...
+    						//alert("Variable obj3 no definida");
+						} else {
+							for(u=0;u<correus.length;u++){ //comprovar tots els correus que tenim BD i comprar que tenim posat actualment per evitar tenir un altre igual
+								if(vari==correus[u]){
+									borrarEstilCamp(id);
+									ficarWarningCamp(id);
+									mostrar_notificacio_pnotify("Correu","Ja tenim registrat aquest correu!","error");
+								}
+							}	
 						}
 					break;
 				}	
@@ -402,3 +475,73 @@ function comprovarCamps(id){
 		}
 	}	
 }
+
+//funcions per AJAX des de usuaris per modificar, borrar i modificar
+function cridafuncioaccio(accio,id) {
+	$("#iconcarregarusuaris").show();
+	var query;
+	switch(accio) {
+		case "afegir":
+			alert("Afegir");
+			query = 'accio='+accio+'&txtmessage='+ $("#txtmessage").val();
+		break;
+		case "modificar":
+			var nom = $("#chnom"+id).val();
+			var cognom1 = $("#chcognom1"+id).val();
+			var cognom2 = $("#chcognom2"+id).val();
+			var hd = $("#chhd"+id).val();
+			var telf = $("#chtelefon"+id).val();
+			query = 'accio='+accio+'&id_usuari='+ id +'&nom='+ nom +'&cognom1='+ cognom1 +'&cognom2='+ cognom2 +'&hd='+ hd +'&telf='+ telf;
+		break;
+		case "eliminar":
+			query = 'accio='+accio+'&id_usuari='+id;
+			//alert("Eliminar");
+		break;
+		case 'canviestat':
+			var id_estat = $("#selectestats"+id).select().val();//pillem que hem selecionat el permis que acaba de recullir 
+			query = 'accio='+accio+'&id_usuari='+id+'&id_estat='+id_estat;
+			//alert(id_estat);
+		break;
+		case 'canvirol':
+			var id_rol = $("#selectrol"+id).select().val();//pillem que hem selecionat el permis que acaba de recullir
+			query = 'accio='+accio+'&id_usuari='+id+'&id_rol='+id_rol;
+			//alert(id_rol);
+		break;
+	}
+
+	//Aqui fem accions que rebem i cridem a BD amb AJAX que permet fer sense carregar la pàgina i tal es com no haguessis passat res la pàgina.
+	$.ajax({
+		url: "accionsBDusuaris.php",
+		data:query,
+		type: "POST",
+		success:function(data){
+			switch(accio) { //que ha sortit bé i fem missatge cada acció
+				case "afegir":
+					alert("Acaba d'entrar AJAX per insertar!");
+				break;
+				case "eliminar": 
+					mostrar_notificacio_pnotify("Usuari","Acaba d'eliminar correctament!","success");
+					$("#cos-contingut-usuaris").load("paginationUsuaris.php?page=1"); //tornem carregar la pagina aixi no mostra usuari que acabem d'eliminar
+				break;
+				case "modificar":
+					mostrar_notificacio_pnotify("Usuari","Acaba de modificar correctament!","success");
+					$("#cos-contingut-usuaris").load("paginationUsuaris.php?page=1");
+					$('#myModalmod'+id).modal('hide'); //amagar i borrar fondo que no marxava
+					$('body').removeClass('modal-open');
+					$('.modal-backdrop').remove();
+				break;
+				case "canviestat":
+					mostrar_notificacio_pnotify("Estat","Acaba de fer canvi correctament!","success");
+				break;
+				case "canvirol":
+					mostrar_notificacio_pnotify("Rol","Acaba de fer canvi correctament!","success");
+				break;
+			}
+			$("#iconcarregarusuaris").hide();
+		},
+		error:function (){ //Si surt malament hem de fer avis error
+			mostrar_notificacio_pnotify("AJAX BD","En general no funciona!","error");
+			$("#iconcarregarusuaris").hide();
+		}
+	});
+};
