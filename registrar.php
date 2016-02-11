@@ -25,6 +25,14 @@
                 <div id="formulari-usuari"> 
                 	<?php
 						include 'session.php';
+						if(isset($_SESSION['error'])){
+					?>
+                    	<script>
+							$(function(){mostrar_notificacio_pnotify("Alerta","<?php echo $_SESSION['error']; ?>","error");});
+						</script>
+                    <?php
+							unset($_SESSION['error']);
+						}
 						if(isset($_SESSION['correu'])){
                     		header('Location: index.php');
 						} else {

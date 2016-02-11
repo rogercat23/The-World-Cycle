@@ -12,6 +12,14 @@
                 <div id="formulari-usuari"> 
                 	<?php
 						include 'session.php';
+						if(isset($_SESSION['error'])){
+					?>
+                    	<script>
+							$(function(){mostrar_notificacio_pnotify("Alerta","<?php echo $_SESSION['error']; ?>","error");});
+						</script>
+                    <?php
+							unset($_SESSION['error']);
+						}
 						if(isset($_SESSION['correu'])){
                     		echo "<form action='' method='post'><span class='glyphicon glyphicon-user' aria-hidden='true'></span> Benvingut ". $_SESSION['nom']." ". $_SESSION['cognoms'] ."\n<button type='submit' class='button btn-danger btn-sm' name='tancarsessio'><span class='glyphicon glyphicon-off' aria-hidden='true'></span> Tancar sessi&oacute;</button></form>";
 						} else {

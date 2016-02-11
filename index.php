@@ -13,10 +13,8 @@
                 	<?php
 						include 'session.php';
 						if(isset($_SESSION['error'])){
-							echo $_SESSION['error'];
 					?>
                     	<script>
-							alert(" <?php echo $_SESSION['error']; ?> ");
 							$(function(){mostrar_notificacio_pnotify("Alerta","<?php echo $_SESSION['error']; ?>","error");});
 						</script>
                     <?php

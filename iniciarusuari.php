@@ -5,9 +5,9 @@
 		if($_POST['correui']=='' && $_POST['passwordi']==''){ //per evitar si estan buides per evitar buscar a BD
 			$_SESSION['error']="No has introduit correu ni la contrassenya";
 		} else if($_POST['correui']==''){
-			$_SESSION['error']="El camp del correu esta buit";
+			$_SESSION['error']="El camp del correu estava buit";
 		} else if($_POST['passwordi']==''){
-			$_SESSION['error']="el camp del password esta buit";
+			$_SESSION['error']="El camp del password estava buit";
 		} else {
 			$correu = $_POST['correui'];
 			$password = md5($_POST['passwordi']); //guardem password introduit però transformat per md5 per poder comparar que tenim BD
@@ -29,7 +29,7 @@
 			}
 		}
 	} else {
-		$_SESSION['error']="Els variables correui o passwordi no existeixen per tant no s'han creat bé";
+		$_SESSION['error']="Els variables correui o passwordi no existeixen per tant no s'han rebut bé i contacta per la pagina contacte!";
 	}
 	//echo $_SESSION['error'];
 	header('Location: ' . $_SERVER['HTTP_REFERER']); //tornar la pàgina anterior on hem clicat per anar aquesta (BACK)
