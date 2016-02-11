@@ -47,10 +47,10 @@ foreach($array as $k=>$v) {
             <button class="btn btn-default" id="<?php echo $array[$k]["id"] ?>" onClick="clickMostrarAmagar(this)"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Mirar</button>				
         </td>
 	</tr> 
-    <tr>
-    	<td colspan="4">
-        	<div id="p<?php echo $array[$k]["id"] ?>" class="hide-div">
+    <tr id="tr<?php echo $array[$k]["id"] ?>" class="hide-div">
+    	<td colspan="5">
             	<?php echo $array[$k]["nom"]; ?>
+                
             </div>
         </td>
     </tr> 

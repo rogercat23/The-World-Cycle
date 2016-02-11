@@ -107,10 +107,9 @@ foreach($array as $k=>$v) {
                                 	<label for="chtelefon">Telefon</label>
                                     <input type="text" class="form-control" id="chtelefon<?php echo $array[$k]["id"]; ?>" value="<?php echo $array[$k]["telefon"]; ?>">
                                 </div>
-                                <div class="col-xs-6 has-feedback" id="chdata_naixdiv">
-                                	<label for="chdata_naix">Data de naixament</label>
-                                	<input type="text" class="form-control" id="chdata_naix" name="chdata_naix" value="<?php echo $array[$k]["data_naix"]; ?>">
-                                </div>
+                                <div class="col-xs-6 has-feedback" id="data_naixdiv">
+                                        <input type="text" class="form-control" id="data_naix" name="data_naix" placeholder="Data de naixament" onChange="comprovarCamps(this.id)" value="<?php echo $array[$k]["data_naix"]; ?>" title="Es obligatori!" required><span id="data_naixicon" class="form-control-feedback glyphicon"></span>
+                                    </div>
                         	</div>
                         </form>
                       </div>
