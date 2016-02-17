@@ -117,7 +117,7 @@
                                         <input type="text" class="form-control" id="telefon" name="telefon" placeholder="Tel&eacute;fon" onChange="comprovarCamps(this.id)"  title="Es obligatori!" required><span id="telefonicon" class="form-control-feedback glyphicon"></span>
                                     </div>
                                     <div class="col-xs-6 has-feedback" id="data_naixdiv">
-                                        <input type="text" class="form-control" id="data_naix" name="data_naix" placeholder="Data de naixament" onChange="comprovarCamps(this.id)"  title="Es obligatori!" required><span id="data_naixicon" class="form-control-feedback glyphicon"></span>
+                                        <input type="text" class="form-control datepicker" id="data_naix" name="data_naix" placeholder="Data de naixament" onChange="comprovarCamps(this.id)"  title="Es obligatori!" required><span id="data_naixicon" class="form-control-feedback glyphicon"></span>
                                     </div>
                                </div>
                               </div>

@@ -53,7 +53,7 @@ $(document).ready(function() {
 		showMonthAfterYear: false,
 		yearSuffix: ''};
 	$.datepicker.setDefaults($.datepicker.regional['ca']);
-	
+	/*
 	$( "#data_naix" ).datepicker({ 
 		dateFormat: 'dd/mm/yy', //canvio format per evitar donar error d'insertar a basde de dades que ha de ser aquest format 1991-3-25 (aaaa-mm-dd) i format es yy-mm-dd
 		minDate: '-100Y', //minim es fa 100 anys
@@ -64,7 +64,15 @@ $(document).ready(function() {
 		dateFormat: 'dd/mm/yy', //canvio format per evitar donar error d'insertar a basde de dades que ha de ser aquest format 1991-3-25 (aaaa-mm-dd) i format es yy-mm-dd
 		minDate: '-100Y', //minim es fa 100 anys
 		maxDate: 'today' //avui es màxim que no podrem triar demà que es tracta la data de neixament
-	 });
+	 });*/
+	
+	$('.datepicker').each(function(){ //ajuda tenir multiples datepicker que donava error amb el mateix id o diferents ids que havia de fer es tenir el mateix class entre tots els datepikcer llavors ficar each per pillar tots
+    	$(this).datepicker({
+			dateFormat: 'dd/mm/yy', //canvio format per evitar donar error d'insertar a basde de dades que ha de ser aquest format 1991-3-25 (aaaa-mm-dd) i format es yy-mm-dd
+			minDate: '-100Y', //minim es fa 100 anys
+			maxDate: 'today' //avui es màxim que no podrem triar demà que es tracta la data de neixament
+		});
+	});
 	
 	$("#formulariregistrar").submit(function(){//La hora de clicar per afegir, comprovarem que tots els camps estiguin bé i enviar, si es contrari no deixarem enviar i farem avis.
 		var correcte = true;	
@@ -216,6 +224,7 @@ function expressioRegular(vari, regtext, id){
 
 //Funció per comprovar tots els camps que siguin correcte abans d'enviar a BD o fer una consulta des de les pàgines registrar i contacte
 function comprovarCamps(id){
+	PNotify.removeAll(); //Borrar totes les notificacions que esta mostrant aquest moment
 	var vari = $("#"+id).val();
 	borrarEstilCamp(id);
 	if($("#"+id).val().length == 0) {
@@ -478,6 +487,7 @@ function comprovarCamps(id){
 
 //funcions per AJAX des de usuaris per modificar, borrar i modificar
 function cridafuncioaccio(accio,id) {
+	PNotify.removeAll(); //Borrar totes les notificacions que esta mostrant aquest moment
 	$("#iconcarregarusuaris").show();
 	var query;
 	switch(accio) {

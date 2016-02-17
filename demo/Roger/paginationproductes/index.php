@@ -114,10 +114,10 @@ function cridafuncioaccio(action,variable) {
 	
 	function clickMostrarAmagar(vari){
 		$('#tr'+vari.id).slideToggle(500);
-		if($('#tr'+vari.id).hasClass()){
+		if($('#tr'+vari.id).find(":hidden")){
 			$('#'+vari.id).html('<span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span> Amagar');
 		} else {
-			$('#'+vari.id).html('<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Mostrar');
+			$('#'+vari.id).html('<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Mirar');
 		}
 		//alert($('#p'+vari.id).is('hide'));
 	}

@@ -1,6 +1,9 @@
 <!-- META -->
 <meta charset="utf-8">
 
+<!-- ICON de prestanya de web-->
+<link rel="shortcut icon" href="img\logo\iconprest.ico">
+
 <!-- ESTILS DE LA PÀGINA -->
 <link href="css/jquery-ui.css" rel="stylesheet">
 <link href="css/pnotify.custom.min.css" rel="stylesheet">
