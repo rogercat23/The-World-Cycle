@@ -120,8 +120,8 @@ $(document).ready(function() {
 	});
 	
 	$("#netejarformregistrar").click(function(){
+		PNotify.removeAll(); //Borrar totes les notificacions que esta mostrant aquest moment
 		netejar_avisats_registrar();//treure els divs que estan posats errors, success, warning
-		mostrar_notificacio_pnotify('Info: ','Acaba de netejar tots els camps del formulari!','');
 	});
 	
 	$("#netejarformcontacte").click(function(){
@@ -129,7 +129,7 @@ $(document).ready(function() {
 		mostrar_notificacio_pnotify('Info: ','Acaba de netejar tots els camps del contacte!','');
 	});
 	
-	$('#ciutat').on('autocompletechange',function(){
+	$('.ciutat').on('autocompletechange',function(){
 		var id = "ciutat";
 		borrarEstilCamp(id);
 		var vari = $("#"+id).val();

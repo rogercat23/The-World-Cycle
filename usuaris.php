@@ -46,7 +46,7 @@
             <div id="qd_cos">
             <p>Usuaris</p>
             <div id="plus_up">
-            	<button type="button"  class="btn btn-primary" data-toggle="modal" data-target="#myModalafegirusuari"><span class='glyphicon glyphicon-plus' aria-hidden='true'></span><span class='glyphicon glyphicon-user' aria-hidden='true'></span> Usuari</button>
+            	<button type="button"  class="btn btn-primary" data-toggle="modal" data-target="#myModalafegirusuari" ><span class='glyphicon glyphicon-plus' aria-hidden='true'></span><span class='glyphicon glyphicon-user' aria-hidden='true'></span> Usuari</button>
             </div>
             <div id="iconcarregarusuaris" align="center"><h1><span class="glyphicon glyphicon-refresh glyphicon-spin"></span> Carregant...</h1></div>
             <div id="cos-contingut-usuaris" >
@@ -70,13 +70,11 @@
 					<?php endfor;endif;?> 
                 	</div> 
             </div>
-            
              <!-- Modal -->
                 <div class="modal fade" id="myModalafegirusuari" tabindex="-1" role="dialog" aria-labelledby="myModalLabelafegirusuari" aria-hidden="true">
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header header-title-modal">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <h4>Afegir un usuari</h4>
                       </div>
                       <div class="modal-body">
@@ -128,7 +126,7 @@
                                         <input type="text" class="form-control" id="telefon" name="telefon" placeholder="Tel&eacute;fon" onChange="comprovarCamps(this.id)"  title="Es obligatori!" required><span id="telefonicon" class="form-control-feedback glyphicon"></span>
                                     </div>
                                     <div class="col-xs-6 has-feedback" id="data_naixdiv">
-                                        <input type="text" class="form-control datepicker" id="chdata_naix" name="data_naix" placeholder="Data de naixament" onChange="comprovarCamps(this.id)"  title="Es obligatori!" required><span id="data_naixicon" class="form-control-feedback glyphicon"></span>
+                                        <input type="text" class="form-control datepicker" id="data_naix" name="data_naix" placeholder="Data de naixament" onChange="comprovarCamps(this.id)"  title="Es obligatori!" required><span id="data_naixicon" class="form-control-feedback glyphicon"></span>
                                     </div>
                                </div>
                               </div>
@@ -155,7 +153,7 @@
                                </div></br>
                                 <div class="row">
                                      <div class="col-xs-8 has-feedback" id="ciutatdiv">
-                                        <input type="text" class="form-control" id="ciutat" name="ciutat" placeholder="Ciutat" title="Es obligatori!" disabled="true" required><span id="ciutaticon" class="form-control-feedback glyphicon"></span>
+                                        <input type="text" class="form-control ciutat" id="ciutat" name="ciutat" placeholder="Ciutat" title="Es obligatori!" disabled="true" required><span id="ciutaticon" class="form-control-feedback glyphicon"></span>
                                       </div>
                                       <div class="col-xs-4 has-feedback" id="postaldiv">
                                         <input type="text" class="form-control" id="postal" name="postal" placeholder="Postal" onChange="comprovarCamps(this.id)" title="Es obligatori!" required><span id="postalicon" class="form-control-feedback glyphicon"></span>
@@ -176,23 +174,15 @@
                                       </div>
                                   </div>  
                               </div>
-                              <center>
-                                  <button type="submit" class="btn btn-success">Registrar</button>
-                                  <button type="reset" class="btn btn-danger" id="netejarformregistrar">Netejar</button>
-                              </center>
-                            </form>
                       </div>
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel·la</button>
-                        <button type="button" onclick="cridafuncioaccio('afegir',0)" class="btn btn-primary">Afegir usuari</button>
+                      		<button type="reset" class="btn btn-danger" id="netejarformregistrar" data-dismiss="modal">Cancel·la</button>
+                       		<button type="submit" class="btn btn-success">Registrar</button>
+                      	</form>
                       </div>
                     </div>
                   </div>
                 </div>
-                
-                
-                
-                
                 
     </body>
 </html>

@@ -65,7 +65,6 @@ foreach($array as $k=>$v) {
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header header-title-modal">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <h4>Modificar les dades de l'usuari <?php echo $array[$k]["correu"]; ?></h4>
                       </div>
                       <div class="modal-body">
@@ -107,16 +106,12 @@ foreach($array as $k=>$v) {
                                 	<label for="chtelefon">Telefon</label>
                                     <input type="text" class="form-control" id="chtelefon<?php echo $array[$k]["id"]; ?>" value="<?php echo $array[$k]["telefon"]; ?>">
                                 </div>
-                                <div class="col-xs-6 has-feedback" id="data_naixdiv">
-                                	<label for="chdata_naix">Data de naixament</label>
-                                	<input type="text" class="form-control datepicker" id="data_naix" name="data_naix" placeholder="Data de naixament" onChange="comprovarCamps(this.id)" value="<?php echo $array[$k]["data_naix"]; ?>" title="Es obligatori!" required><span id="data_naixicon" class="form-control-feedback glyphicon"></span>
-                                    </div>
                         	</div>
                         </form>
                       </div>
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel·la</button>
-                        <button type="button" onclick="cridafuncioaccio('modificar','<?php echo $array[$k]["id"]; ?>')" class="btn btn-primary">Guarda els canvis</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel·la</button>
+                        <button type="button" class="btn btn-success" onclick="cridafuncioaccio('modificar','<?php echo $array[$k]["id"]; ?>')">Guarda els canvis</button>
                       </div>
                     </div>
                   </div>

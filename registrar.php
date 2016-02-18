@@ -144,7 +144,7 @@
                                </div></br>
                                 <div class="row">
                                      <div class="col-xs-8 has-feedback" id="ciutatdiv">
-                                        <input type="text" class="form-control" id="ciutat" name="ciutat" placeholder="Ciutat" title="Es obligatori!" disabled="true" required><span id="ciutaticon" class="form-control-feedback glyphicon"></span>
+                                        <input type="text" class="form-control ciutat" id="ciutat" name="ciutat" placeholder="Ciutat" title="Es obligatori!" disabled="true" required><span id="ciutaticon" class="form-control-feedback glyphicon"></span>
                                       </div>
                                       <div class="col-xs-4 has-feedback" id="postaldiv">
                                         <input type="text" class="form-control" id="postal" name="postal" placeholder="Postal" onChange="comprovarCamps(this.id)" title="Es obligatori!" required><span id="postalicon" class="form-control-feedback glyphicon"></span>
