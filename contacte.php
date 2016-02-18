@@ -1,4 +1,4 @@
-<!doctype html>
+<html>
     <head>
         <title> The World Cycle Web </title>
         <?php
@@ -11,35 +11,7 @@
                 <img src="img\logo\theworldcycle.png"/>
                 <div id="formulari-usuari"> 
                 	<?php
-						include 'session.php';
-						if(isset($_SESSION['error'])){
-					?>
-                    	<script>
-							$(function(){mostrar_notificacio_pnotify("Alerta","<?php echo $_SESSION['error']; ?>","error");});
-						</script>
-                    <?php
-							unset($_SESSION['error']);
-						}
-						if(isset($_SESSION['correu'])){
-                    		echo "<form action='' method='post'><span class='glyphicon glyphicon-user' aria-hidden='true'></span> Benvingut ". $_SESSION['nom']." ". $_SESSION['cognoms'] ."\n<button type='submit' class='button btn-danger btn-sm' name='tancarsessio'><span class='glyphicon glyphicon-off' aria-hidden='true'></span> Tancar sessi&oacute;</button></form>";
-						} else {
-					?>
-                	<div class="row">
-                    	<form action="iniciarusuari.php" method="post">
-                         	<div class="col-xs-4">
-                        		<input type="text" class="form-control input-sm" id="correui" name="correui" placeholder="Correu">
-                         	</div>
-                         	<div class="col-xs-4">
-                     			<input type="password" class="form-control input-sm" id="passwordi" name="passwordi" placeholder="Password">   		 
-                        	</div>
-                            <div class="col-xs-4">
-                             <button type="submit" class="button btn-success btn-sm"> Entrar </button>
-                    		 <a href="registrar.php"><button type="button" class="button btn-primary btn-sm"> Registrar </button></a>
-                        	</div>
-                       	  </form>
-                       </div>
-                       <?php
-						}
+						include 'sessiogeneral.php';
 					   ?>
                 </div>
                 <ul id="botons_menu_hor">
@@ -63,8 +35,8 @@
                   
                       <div class="form-group">
                         <label>Usuari:</label>
-                        <div id="correudiv" class="has-feedback">
-                        	<input type="email" class="form-control" id="correu" name="correu" placeholder="Correu" onChange="comprovarCamps(this.id)" title="Es obligatori!" required><span id="correuicon" class="form-control-feedback glyphicon"></span></br>
+                        <div id="correu1div" class="has-feedback">
+                        	<input type="email" class="form-control" id="correu1" name="correu1" placeholder="Correu" onChange="comprovarCamps(this.id)" title="Es obligatori!" required><span id="correu1icon" class="form-control-feedback glyphicon"></span></br>
                         </div>
                         <div class="row">
                         	<div id="nomcdiv" class="col-xs-6 has-feedback">
@@ -90,12 +62,16 @@
                       	</div>
                       </div>
                       <center>
-                          <button type="submit" class="btn btn-success">Enviar missatge</button>
                           <button type="reset" class="btn btn-danger" id="netejarformcontacte">Netejar</button>
+                          <button type="submit" class="btn btn-success">Enviar missatge</button>
                       </center>
                     </form>
    				</div>
             </div>
         </div>
+        
+        <?php
+			include 'dialogregistrar.php';
+		?>
     </body>
 </html>

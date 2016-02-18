@@ -9,7 +9,7 @@ $(document).ready(function() {
 	};
 	
 	function netejar_avisats_contacte(){
-		var ids = ["correu", "nomc", "cognoms", "tema", "comentari"];
+		var ids = ["correu1", "nomc", "cognoms", "tema", "comentari"];
 		for($i=0;$i<ids.length;$i++){//estalviem repetir i cridem per netejar amb array sense repetir res que es més curt i més net.
 			borrarEstilCamp(ids[$i]);
 			if(tipus_input = $("#"+ ids[$i]).attr("type")=="radio"){ //per poder borrar boto selecionat amb estil active com format btn
@@ -125,6 +125,7 @@ $(document).ready(function() {
 	});
 	
 	$("#netejarformcontacte").click(function(){
+		PNotify.removeAll(); //Borrar totes les notificacions que esta mostrant aquest moment
 		netejar_avisats_contacte();//treure els divs que estan posats errors, success, warning
 		mostrar_notificacio_pnotify('Info: ','Acaba de netejar tots els camps del contacte!','');
 	});
@@ -230,6 +231,7 @@ function comprovarCamps(id){
 	if($("#"+id).val().length == 0) {
 		switch(id){
 			case 'correu':
+			case 'correu1': //es pel contacte sino sortiria notificacions que no es per registrar i tal
 				mostrar_notificacio_pnotify("Correu","No has introduit res!","error");
 				ficarErrorCamp(id);
 			break;
@@ -315,6 +317,7 @@ function comprovarCamps(id){
 	} else {
 		switch(id){
 			case 'correu':
+			case 'correu1': //es pel contacte sino sortiria notificacions que no es per registrar i tal
 				var regtext = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/;
 			break;
 			case 'password':
@@ -418,6 +421,7 @@ function comprovarCamps(id){
 			if(!comp){
 				switch(id){
 					case 'correu':
+					case 'correu1': //es pel contacte sino sortiria notificacions que no es per registrar i tal
 						mostrar_notificacio_pnotify("Correu","El format del correu es xxx@xxx.xx","error");
 					break;
 					case 'password':
