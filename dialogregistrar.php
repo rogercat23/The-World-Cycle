@@ -122,7 +122,7 @@
               </div>
       </div>
       <div class="modal-footer">
-            <button type="reset" class="btn btn-danger" id="netejarformregistrar" data-dismiss="modal">Cancel·la</button>
+            <button type="button" class="btn btn-danger" id="netejarformregistrar" data-dismiss="modal">Cancel·la</button>
             <button type="submit" class="btn btn-success">Registrar</button>
         </form>
       </div>

@@ -146,6 +146,11 @@ $(document).ready(function() {
 		}
 	});	
 	
+	// Quan tanquem qualsevol dialog amb class modal (bootstrap sobretot amb eitqueta class amb modal) quan cliquem per tancar la finestra borrem totes les dades del contingut del form
+	$('.modal').on('hidden.bs.modal', function(){
+		$(this).find('form')[0].reset();//crida reset del form que trobi a dins dialog que acaba de despareixer
+	});
+	
 	//Arranca la pàgina usuaris per demostrar per poder fer funcionar per pàgina a pàgina
 	$("#cos-contingut-usuaris").load("paginationUsuaris.php?page=1");
 	$("#iconcarregarusuaris").hide();
