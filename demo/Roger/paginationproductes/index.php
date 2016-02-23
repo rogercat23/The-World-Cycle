@@ -15,14 +15,25 @@
 		$categories = $conBD->runQuery("SELECT * FROM categoria");
 
 	?>    
-    <select class="form-control" id="categoria" onChange="seleccionarcategoria(this.id)">
-            <option value="0">Totes les categories...</option>
-            <?php
-                for($i=0;$i<count($categories);$i++){
-                    echo "<option value='". $categories[$i]['id'] ."'>". $categories[$i]['nom'] ."</option>";
-                }
-            ?>
-        </select>
+	<div class="row">
+		<div class="col-md-1">
+		</div>
+		<div class="col-md-1">
+			<button type="button"  class="btn btn-primary" data-toggle="modal" data-target="#myModalproducte" ><span class='glyphicon glyphicon-plus' aria-hidden='true'></span> Producte</button>
+		</div>
+		<div class="col-md-2">
+			<select class="form-control" id="categoria" onChange="seleccionarcategoria(this.id)">
+				<option value="0">Totes les categories...</option>
+				<?php
+					for($i=0;$i<count($categories);$i++){
+						echo "<option value='". $categories[$i]['id'] ."'>". $categories[$i]['nom'] ."</option>";
+					}
+				?>
+			</select>
+		</div>
+		<div class="col-md-4">
+		</div>
+	</div>
 <div id="iconcarregar" align="center"><h3><span class="glyphicon glyphicon-refresh .glyphicon-spin"></span> Carregant...</h3></div>
 <div id="cos-contingut">
 	
