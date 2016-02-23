@@ -411,6 +411,8 @@ function comprovarCamps(id){
 						}
 					}
 				});
+				$( "#ciutat" ).autocomplete( "option", "appendTo", "#formulariregistrar" ); //Ja funciona autocomplete a dins d'una finestra dialog bootstrap
+				
 				$("#ciutat").removeAttr("disabled");
 				$("#ciutat").val("");
 				borrarEstilCamp("ciutat");
@@ -564,3 +566,6 @@ function cridafuncioaccio(accio,id) {
 		}
 	});
 };
+
+
+
