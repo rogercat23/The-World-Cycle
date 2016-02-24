@@ -56,6 +56,9 @@ $total_pages = ceil($total_records / $limit);
 <?php endfor;endif;?> 
 	</div> 
 </div>
+	<?php
+	        include 'dialogproducte.php';
+	?> 
 </body>
 <script>
 $(document).ready(function() {

@@ -38,5 +38,19 @@
  </header>
  <div><button class="desc">Desvanecer</button><button class="explode">Explotar</button></div>
  <div id="contenido" style="display:none;">hollllaaa</div>
+ 
+	<input type="file" id="foo" name="file1" multiple="multiple" />
+	<input name="file" type="text" />
+ 
+	<script>
+		$("input[name=fie1]").change(function() {
+			var names = [];
+			alert("hola");
+			for (var i = 0; i < $(this).get(0).files.length; ++i) {
+				names.push($(this).get(0).files[i].name);
+			}
+			$("input[name=file]").val(names);
+		});	
+	</script>
 </body>
 </html>

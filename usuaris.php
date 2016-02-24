@@ -32,9 +32,15 @@
             </div>
             <div id="qd_cos">
             <p>Usuaris</p>
-            <div id="plus_up">
-            	<button type="button"  class="btn btn-primary" data-toggle="modal" data-target="#myModalregistrar" ><span class='glyphicon glyphicon-plus' aria-hidden='true'></span><span class='glyphicon glyphicon-user' aria-hidden='true'></span> Usuari</button>
-            </div>
+			<div class="row">
+				<div class="col-md-1">
+				</div>
+				<div class="col-md-1">
+					<button type="button"  class="btn btn-primary" data-toggle="modal" data-target="#myModalregistrar" ><span class='glyphicon glyphicon-plus' aria-hidden='true'></span><span class='glyphicon glyphicon-user' aria-hidden='true'></span> Usuari</button>
+				</div>
+				<div class="col-md-6">
+				</div>
+			</div>
             <div id="iconcarregarusuaris" align="center"><h1><span class="glyphicon glyphicon-refresh glyphicon-spin"></span> Carregant...</h1></div>
             <div id="cos-contingut-usuaris" >
             </div>
