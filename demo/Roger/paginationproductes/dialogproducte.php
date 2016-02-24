@@ -40,8 +40,8 @@
 						<select class="form-control" id="categoria" name="categoria" onChange="comprovarCamps(this.id)" title="Es obligatori!" required>
                             <option value="">Categoria</option>
                             <?php
-                                for($i=0;$i<count($paisos);$i++){
-                                    echo "<option value='". $paisos[$i]['id'] ."'>". $paisos[$i]['nom'] ."</option>";
+                                for($i=0;$i<count($categories);$i++){
+                                    echo "<option value='". $categories[$i]['id'] ."'>". $categories[$i]['nom'] ."</option>";
                                 }
                             ?>
                         </select>
@@ -53,7 +53,6 @@
 						Pujar foto<input type="file" id="pfotos" name="pfotos" accept="image/*" multiple="multiple">
 					</span>
 					<span id="fotoicon" class="form-control-feedback glyphicon"></span>
-					<input name="file" type="text" />
 				</div>
             </div>
       </div>

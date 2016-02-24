@@ -43,14 +43,16 @@
 	<input name="file" type="text" />
  
 	<script>
-		$("input[name=fie1]").change(function() {
-			var names = [];
-			alert("hola");
-			for (var i = 0; i < $(this).get(0).files.length; ++i) {
-				names.push($(this).get(0).files[i].name);
-			}
-			$("input[name=file]").val(names);
-		});	
+		$(document).ready(function() {
+			$("input[name=fie1]").change(function() {
+				var names = [];
+				alert("hola");
+				for (var i = 0; i < $(this).get(0).files.length; ++i) {
+					names.push($(this).get(0).files[i].name);
+				}
+				$("input[name=file]").val(names);
+			});	
+		});
 	</script>
 </body>
 </html>

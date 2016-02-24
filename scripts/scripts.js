@@ -566,12 +566,3 @@ function cridafuncioaccio(accio,id) {
 		}
 	});
 };
-
-//Es per poder pillar els arxius multiples amb un input i aquest cas farem servir per pujar les fotos multiples
-$("input[name=pfotos]").change(function() {
-	var names = [];
-	for (var i = 0; i < $(this).get(0).files.length; ++i) {
-		names.push($(this).get(0).files[i].name);
-	}
-	$("input[name=file]").val(names);
-});
