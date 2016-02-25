@@ -5,7 +5,6 @@
 	include	 'llibreries.php';
 ?>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
 </head>
 <body>
 <div>
@@ -34,27 +33,9 @@
 		<div class="col-md-4">
 		</div>
 	</div>
-<div id="iconcarregar" align="center"><h3><span class="glyphicon glyphicon-refresh .glyphicon-spin"></span> Carregant...</h3></div>
-<div id="cos-contingut">
-	
-</div>
-
-<?php
-$limit = 10;
-$numrows = $conBD->numRows("SELECT * FROM producte");
-$total_records = $numrows;  
-$total_pages = ceil($total_records / $limit); 
-?>
-<div align="center">
-<ul class='pagination text-center' id="pagination">
-<?php if(!empty($total_pages)):for($i=1; $i<=$total_pages; $i++):  
-            if($i == 1):?>
-            <li class='active'  id="<?php echo $i;?>"><a href='pagination.php?page=<?php echo $i;?>'><?php echo $i;?></a></li> 
-            <?php else:?>
-            <li id="<?php echo $i;?>"><a href='pagination.php?page=<?php echo $i;?>'><?php echo $i;?></a></li>
-        <?php endif;?>          
-<?php endfor;endif;?> 
-	</div> 
+    <div id="iconcarregar" align="center"><h3><span class="glyphicon glyphicon-refresh .glyphicon-spin"></span> Carregant...</h3></div>
+    <div id="cos-contingut"></div>
+    <div id="cos-pagines-nav"></div>
 </div>
 	<?php
 	        include 'dialogproducte.php';
@@ -62,7 +43,8 @@ $total_pages = ceil($total_records / $limit);
 </body>
 <script>
 $(document).ready(function() {
-$("#cos-contingut").load("pagination.php?page=1");
+	$("#cos-contingut").load("pagination.php?page=1");
+	$("#cos-pagines-nav").load("barra-pagines.php");
 	$("#iconcarregar").hide();
     $("#pagination li").live('click',function(e){
     e.preventDefault();
@@ -123,7 +105,9 @@ function cridafuncioaccio(action,variable) {
 	
 	function seleccionarcategoria(id){
 		var id_select = $("#"+id).select().val();//Pillem id escullit d'una d'aquestes categories i enviem cap pagination que mostri nomes aquesta categoria amb GET
+		//alert(id_select);
 		$("#cos-contingut").load("pagination.php?page=1&id_select="+id_select);
+		$("#cos-pagines-nav").load("barra-pagines.php?categoria="+id_select);
 	}
 	
 	function clickMostrarAmagar(vari){
