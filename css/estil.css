@@ -206,3 +206,32 @@ p{
     cursor: inherit;
     display: block;
 }
+
+/*Estil Carousel que surt la pàgina principal*/
+#myCarousel{ /*Controlant quan movem la finestra del navegador per fer mes petit a gran */
+	display:block;
+	margin: 0 auto;
+	width:1500px;	
+	max-width:100%;
+}
+
+.carousel-inner .item img{ /*ficar centre totes les fotos que surten Carousel*/
+	display:block;
+	margin: 0 auto;
+	height:500px;
+	width:1500px; /*Sempre si navegador es més gran que 1300px es queda 1300px i si es contrar es controla per veure tota l'imatge però fent més petit*/
+	max-width:100%; /*Permet controlar les mides de l'imatge quan movem fer petit i fer gran*/
+}
+
+.color-default{ /*ficar color verd les fletxes i lletres*/
+	color:#459e00;
+}
+
+.carousel-indicators li{ /*igual anterior per amb rodones que sorten per sota*/
+	background-color:#fff;
+	border:1px solid #459e00;
+}
+
+.carousel-indicators .active{ /*igual anterior per amb rodones que sorten per sota*/
+	background-color:#459e00;
+}
