@@ -3,7 +3,8 @@
 <link href="css/pnotify.custom.min.css" rel="stylesheet">
 <link rel="stylesheet" href="css/bootstrap-theme.css">
 <link rel="stylesheet" href="css/bootstrap.min.css">
-<link href="css/estil.css" rel="stylesheet">
+<link rel="stylesheet" href="css/prettyPhoto.css">
+<link rel="stylesheet" href="css/estil.css">
 
 <!-- LLIBRERIES DE LA PÀGINA -->
 <script src="lib/external/jquery/jquery.js"></script>
@@ -11,4 +12,5 @@
 <script src="lib/jquery-migrate-1.2.1.js"></script>
 <script src="lib/pnotify.custom.min.js"></script>
 <script src="lib/bootstrap.min.js"></script>
+<script src="lib/jquery.prettyPhoto.js"></script>
 <script src="scripts/scripts.js"></script>
