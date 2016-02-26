@@ -43,8 +43,8 @@
 </body>
 <script>
 $(document).ready(function() {
-	$("#cos-contingut").load("pagination.php?page=1");
-	$("#cos-pagines-nav").load("barra-pagines.php");
+	$("#cos-contingut").load("paginationProductes.php?page=1");
+	$("#cos-pagines-nav").load("barra-pagines-productes.php");
 	$("#iconcarregar").hide();
     $("#pagination li").live('click',function(e){
     e.preventDefault();
@@ -53,7 +53,7 @@ $(document).ready(function() {
         $("#pagination li").removeClass('active');
         $(this).addClass('active');
         var pageNum = this.id;
-        $("#cos-contingut").load("pagination.php?page=" + pageNum);
+        $("#cos-contingut").load("paginationProductes.php?page=" + pageNum);
 		$("#iconcarregar").hide();
 		$("#cos-contingut").show();
     });
@@ -106,8 +106,8 @@ function cridafuncioaccio(action,variable) {
 	function seleccionarcategoria(id){
 		var id_select = $("#"+id).select().val();//Pillem id escullit d'una d'aquestes categories i enviem cap pagination que mostri nomes aquesta categoria amb GET
 		//alert(id_select);
-		$("#cos-contingut").load("pagination.php?page=1&id_select="+id_select);
-		$("#cos-pagines-nav").load("barra-pagines.php?categoria="+id_select);
+		$("#cos-contingut").load("paginationProductes.php?page=1&id_select="+id_select);
+		$("#cos-pagines-nav").load("barra-pagines-productes.php?categoria="+id_select);
 	}
 	
 	function clickMostrarAmagar(vari){

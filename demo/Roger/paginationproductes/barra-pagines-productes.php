@@ -20,8 +20,8 @@ $total_pages = ceil($total_records / $limit);
 <ul class='pagination text-center' id="pagination">
 <?php if(!empty($total_pages)):for($i=1; $i<=$total_pages; $i++):  
             if($i == 1):?>
-            <li class='active'  id="<?php echo $i;?>"><a href='pagination.php?page=<?php echo $i;?>'><?php echo $i;?></a></li> 
+            <li class='active'  id="<?php echo $i;?>"><a href='paginationProductes.php?page=<?php echo $i;?>'><?php echo $i;?></a></li> 
             <?php else:?>
-            <li id="<?php echo $i;?>"><a href='pagination.php?page=<?php echo $i;?>'><?php echo $i;?></a></li>
+            <li id="<?php echo $i;?>"><a href='paginationProductes.php?page=<?php echo $i;?>'><?php echo $i;?></a></li>
         <?php endif;?>          
 <?php endfor;endif;?>
