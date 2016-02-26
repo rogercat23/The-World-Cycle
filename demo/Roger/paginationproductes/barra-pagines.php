@@ -1,11 +1,18 @@
 <?php
 require_once("GeneralBD.php");
 $conBD = new GeneralBD();
-if (isset($_GET["categoria"])){
-	alert($_GET["categoria"]);	
-} else {
 $limit = 10;
-$numrows = $conBD->numRows("SELECT * FROM producte");
+if (isset($_GET["categoria"])){
+	//echo($_GET["categoria"]);
+	$id_cat = $_GET["categoria"];
+	if($id_cat==0){ //Es per evitar entrar categoria id 0 es tot i hem de selecionar tots
+		$numrows = $conBD->numRows("SELECT * FROM producte");	
+	} else { //busquem per id categoria escullit a MySql
+		$numrows = $conBD->numRows("SELECT * FROM producte p, te_prd_ctg t WHERE p.id=t.id_producte AND t.id_categoria='". $id_cat ."'");
+	}
+} else {
+	$numrows = $conBD->numRows("SELECT * FROM producte");
+}
 $total_records = $numrows;  
 $total_pages = ceil($total_records / $limit); 
 ?>
@@ -18,6 +25,3 @@ $total_pages = ceil($total_records / $limit);
             <li id="<?php echo $i;?>"><a href='pagination.php?page=<?php echo $i;?>'><?php echo $i;?></a></li>
         <?php endif;?>          
 <?php endfor;endif;?>
-<?php
-}
-?>
