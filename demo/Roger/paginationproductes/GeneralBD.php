@@ -2,8 +2,8 @@
 //Classe generalBD amb quatre variables privats no podran modificar de manera de dinamica: host, usuari, password i nom de base de dades.
 class GeneralBD {
 	private $host = "localhost";
-	private $user = "root";
-	private $password = "";
+	private $user = "roger";
+	private $password = "cep2015";
 	private $database = "theworldcycle";
 	private $con;
 	

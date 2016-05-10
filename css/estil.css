@@ -135,6 +135,10 @@ p{
 }
 
 /*Modificant una part estil de bootstrap que té un fallo amb icons*/
+.row .ambicondret{
+	left:100%;
+}
+
 .row .form-control-feedback{
 	right:15px;
 }
@@ -235,3 +239,61 @@ p{
 .carousel-indicators .active{ /*igual anterior per amb rodones que sorten per sota*/
 	background-color:#459e00;
 }
+
+/*Fer invisible els productes quan comencem carregar la pàgina*/
+.hide-div{
+	display:none;
+}
+
+/*DISSENY pel boto com file que no te cap disseny pel bootstrap per tant fem nosaltres com si fossis hagi fet bootstrap*/
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+/*Format de galeria sobre els productes*/
+.gallery li{
+	float:left;
+	padding:3px;
+}
+
+.div-producte-1{
+	background-color:#e1eee3;
+	border-radius:10px;
+	text-align:center;
+	height:100%;
+}
+
+/*Columnes pel botons del producte*/
+#column-btn{
+	width:100px;
+}
+
+/*Form plus and more pels unitats del producte*/
+#myform {
+    text-align: center;
+    padding: 5px;
+    margin: 2%;
+}
+.qty {
+    width: 40px;
+    height: 25px;
+    text-align: center;
+}
+input.qtyplus { width:25px; height:25px;}
+input.qtyminus { width:25px; height:25px;}

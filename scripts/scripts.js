@@ -32,6 +32,15 @@ $(document).ready(function() {
 		NetejarCampsSelect(prselect);
 	}
 	
+	function netejar_avisats_afgadr(){
+		var ids = ["pais", "provinciaregio", "ciutat", "postal", "carrer", "numero", "pis", "porta"];
+		for($i=0;$i<ids.length;$i++){//estalviem repetir i cridem per netejar amb array sense repetir res que es més curt i més net.
+			borrarEstilCamp(ids[$i]);
+		}
+		var prselect = document.getElementById("provinciaregio"); //Pillem id de select de provinci/regio
+		NetejarCampsSelect(prselect);
+	}
+	
 	$.datepicker.regional['ca'] = { //Ficar format catala que no sortia les libreries de jquery UI i que deixi triar opció per canviar mes i any
 		changeMonth: true,
 		changeYear: true,
@@ -101,7 +110,7 @@ $(document).ready(function() {
 	});
 	
 	$("#formularicontacte").submit(function(){//La hora de clicar per afegir, comprovarem que tots els camps estiguin bé i enviar, si es contrari no deixarem enviar i farem avis.
-		alert("Rebut des de formulari submit del contacte");
+		//alert("Rebut des de formulari submit del contacte");
 		var correcte = true;	
 		var cont = 0;
 		var divs = ["correudiv", "nomcdiv", "cognomsdiv", "temadiv", "comentaridiv"];
@@ -119,6 +128,35 @@ $(document).ready(function() {
 		return correcte;
 	});
 	
+	$("#formulariafgadr").submit(function(){//La hora de clicar per afegir, comprovarem que tots els camps estiguin bé i enviar, si es contrari no deixarem enviar i farem avis.
+		alert("hola");
+		/*
+		var correcte = true;	
+		var cont = 0;
+		var divs = ["correudiv", "passworddiv", "password2div", "nomdiv", "cognom1div", "cognom2div", "telefondiv", "data_naixdiv", "ciutatdiv", "postaldiv", "carrerdiv", "numerodiv", "pisdiv", "portadiv"];
+		for(i=0;i<divs.length;i++){
+			if($("#"+divs[i]).hasClass('has-error') || $("#"+divs[i]).hasClass('has-warning')){ //si te classe has-error avisem que s'ha de revisar que no té bé
+				cont++;
+				correcte = false;
+			}	
+		}
+		
+		if(cont!=0){
+			mostrar_notificacio_pnotify('Camps Errors: ','S\' ha de revisar '+ cont +' camp/s que t&eacute; error o alertat.','error');
+		}
+
+		if($("#pis").val().length != 0 || $("#porta").val().length != 0) { //comprova que un dels dos es introduit per obligar introduir els dos o cap per evitar enviar un del dos introduit.
+			if($("#pis").val().length != 0 && $("#porta").val().length != 0) { //Comprova que els dos no poden estar buides (pis i porta)
+			} else{
+				mostrar_notificacio_pnotify('Info: ','S\' ha de tenir afegit pis i porta o sense que no es obligatori si es una casa sola.','error');
+				correcte = false;	
+			}
+		}
+		//return false;
+		return correcte;
+		*/
+	});
+	
 	$("#netejarformregistrar").click(function(){
 		PNotify.removeAll(); //Borrar totes les notificacions que esta mostrant aquest moment
 		netejar_avisats_registrar();//treure els divs que estan posats errors, success, warning
@@ -127,6 +165,13 @@ $(document).ready(function() {
 	$("#netejarformcontacte").click(function(){
 		PNotify.removeAll(); //Borrar totes les notificacions que esta mostrant aquest moment
 		netejar_avisats_contacte();//treure els divs que estan posats errors, success, warning
+		mostrar_notificacio_pnotify('Info: ','Acaba de netejar tots els camps del contacte!','');
+	});
+	
+	$("#netejarformafeadreca").click(function(){
+		PNotify.removeAll(); //Borrar totes les notificacions que esta mostrant aquest moment
+		alert("hola");
+		netejar_avisats_afgadr();//treure els divs que estan posats errors, success, warning
 		mostrar_notificacio_pnotify('Info: ','Acaba de netejar tots els camps del contacte!','');
 	});
 	
@@ -164,6 +209,27 @@ $(document).ready(function() {
 		$("#cos-contingut-usuaris").load("paginationUsuaris.php?page=" + pageNum);
 		$("#iconcarregarusuaris").hide();
 		$("#cos-contingut-usuaris").show();
+	});
+	
+	//Arranca la pàgina per demostrar per poder fer funcionar per pàgina a pàgina
+	$("#cos-contingut-productes").load("paginationProductes.php?page=1");
+	$("#cos-pagines-nav-productes").load("barra-pagines-productes.php");
+	$("#iconcarregarproductes").hide();
+    $("#paginationproductes li").live('click',function(e){
+    e.preventDefault();
+		$("#cos-contingut-productes").hide();
+    	$("#iconcarregarproductes").show();    
+        $("#paginationproductes li").removeClass('active');
+        $(this).addClass('active');
+        var pageNum = this.id;
+        $("#cos-contingut-productes").load("paginationProductes.php?page=" + pageNum);
+		$("#iconcarregarproductes").hide();
+		$("#cos-contingut-productes").show();
+    });
+	
+	$("#fotosp").fileinput({
+		showUpload: false,
+		allowedFileExtensions: ["jpg","png"],	
 	});
 	
 });
@@ -318,6 +384,26 @@ function comprovarCamps(id){
 				mostrar_notificacio_pnotify("Comentari","No has introduit res!","error");
 				ficarErrorCamp(id);
 			break;
+			case 'pnom':
+				mostrar_notificacio_pnotify("Nom producte","No has introduit res!","error");
+				ficarErrorCamp(id);
+			break;
+			case 'ppreu':
+				mostrar_notificacio_pnotify("Preu","No has introduit res!","error");
+				ficarErrorCamp(id);
+			break;
+			case 'puni':
+				mostrar_notificacio_pnotify("Unitat","No has introduit res!","error");
+				ficarErrorCamp(id);
+			break;
+			case 'categoria':
+				mostrar_notificacio_pnotify("Categoria","Torna escullir una categoria!","error");
+				ficarErrorCamp(id);
+			break;
+			case 'desc':
+				mostrar_notificacio_pnotify("Descripció","No has introduit res!","error");
+				ficarErrorCamp(id);
+			break;
 		}
 	} else {
 		switch(id){
@@ -368,7 +454,11 @@ function comprovarCamps(id){
 			case 'numero':
 			case 'pis':
 			case 'porta':
+			case 'puni':
 				var regtext = /^([0-9])*$/;
+			break;
+			case 'ppreu':
+				var regtext = /^-?[0-9]+([.][0-9]*)?$/;
 			break;
 			case 'pais':
 				var id_pais = $("#"+id).val();//Pillem valor escullit del pais per poder pillar totes les provincies i regions (depen pais)
@@ -411,7 +501,7 @@ function comprovarCamps(id){
 						}
 					}
 				});
-				$( "#ciutat" ).autocomplete( "option", "appendTo", "#formulariregistrar" ); //Ja funciona autocomplete a dins d'una finestra dialog bootstrap
+				$( "#ciutat" ).autocomplete( "option", "appendTo", ".dialogauto"); //Ja funciona autocomplete a dins d'una finestra dialog bootstrap
 				
 				$("#ciutat").removeAttr("disabled");
 				$("#ciutat").val("");
@@ -474,6 +564,12 @@ function comprovarCamps(id){
 					case 'porta':
 						mostrar_notificacio_pnotify("Porta","Han de ser numeros!","error");
 					break;
+					case 'ppreu':
+						mostrar_notificacio_pnotify("Preu","Han de ser números i són decimals es separa amb punt . !","error");
+					break;
+					case 'puni':
+						mostrar_notificacio_pnotify("Unitat","Han de ser números!","error");
+					break;
 				}
 			} else {
 				switch(id){
@@ -497,15 +593,11 @@ function comprovarCamps(id){
 }
 
 //funcions per AJAX des de usuaris per modificar, borrar i modificar
-function cridafuncioaccio(accio,id) {
+function cridafuncioacciousuari(accio,id) {
 	PNotify.removeAll(); //Borrar totes les notificacions que esta mostrant aquest moment
 	$("#iconcarregarusuaris").show();
 	var query;
 	switch(accio) {
-		case "afegir":
-			alert("Afegir");
-			query = 'accio='+accio+'&txtmessage='+ $("#txtmessage").val();
-		break;
 		case "modificar":
 			var nom = $("#chnom"+id).val();
 			var cognom1 = $("#chcognom1"+id).val();
@@ -538,7 +630,7 @@ function cridafuncioaccio(accio,id) {
 		success:function(data){
 			switch(accio) { //que ha sortit bé i fem missatge cada acció
 				case "afegir":
-					alert("Acaba d'entrar AJAX per insertar!");
+					//alert("Acaba d'entrar AJAX per insertar!");
 				break;
 				case "eliminar": 
 					mostrar_notificacio_pnotify("Usuari","Acaba d'eliminar correctament!","success");
@@ -566,3 +658,23 @@ function cridafuncioaccio(accio,id) {
 		}
 	});
 };
+
+//Funciones per modificar models sobre usuari i productes per no crear un altre
+function modelusuari(){
+	$("#titoldialogr").html("Crear usuari");	
+	$("#btn-registrar").html("Crear");	
+}
+
+//funciona des de la pàgina productes
+function seleccionarcategoria(id){
+	var id_select = $("#"+id).select().val();//Pillem id escullit d'una d'aquestes categories i enviem cap pagination que mostri nomes aquesta categoria amb GET
+	//alert(id_select);
+	$("#cos-contingut-productes").load("paginationProductes.php?page=1&id_select="+id_select);
+	$("#cos-pagines-nav-productes").load("barra-pagines-productes.php?categoria="+id_select);
+}
+
+//mostrar i amagar els productes
+function clickMostrarAmagar(vari){
+	$('#tr'+vari.id).slideToggle(500);
+}
+

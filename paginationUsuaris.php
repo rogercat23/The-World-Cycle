@@ -1,4 +1,5 @@
 <?php
+	require("session.php");
 	require_once("GeneralBD.php");
 	$GeneralBD = new GeneralBD();
 	
@@ -31,7 +32,7 @@ foreach($array as $k=>$v) {
             <td><?php echo $array[$k]["nom"]; ?></td>  
             <td><?php echo $array[$k]["cognom1"]; ?> <?php echo $array[$k]["cognom2"]; ?></td>  
 			<td>
-            	<select id='selectestats<?php echo $array[$k]["id"] ?>' class='form-control' onChange="cridafuncioaccio('canviestat',<?php echo $array[$k]["id"] ?>)">
+            	<select id='selectestats<?php echo $array[$k]["id"] ?>' class='form-control' onChange="cridafuncioacciousuari('canviestat',<?php echo $array[$k]["id"] ?>)">
             	<?php
 					for($y=0;$y<count($estats);$y++){ 
 						if($estats[$y]['id'] == $array[$k]['id_estat']){
@@ -44,7 +45,7 @@ foreach($array as $k=>$v) {
                 </select>
             </td>
 			<td>
-            	<select id="selectrol<?php echo $array[$k]["id"] ?>" class="form-control" onChange="cridafuncioaccio('canvirol',<?php echo $array[$k]["id"] ?>)">
+            	<select id="selectrol<?php echo $array[$k]["id"] ?>" class="form-control" onChange="cridafuncioacciousuari('canvirol',<?php echo $array[$k]["id"] ?>)">
             	<?php
 					for($x=0;$x<count($permisos);$x++){ 
 						if($permisos[$x]['id'] == $array[$k]['id_roles']){
@@ -57,7 +58,7 @@ foreach($array as $k=>$v) {
                 </select>
             </td>
 			<td>
-				<button class="btn btn-danger" onClick="cridafuncioaccio('eliminar',<?php echo $array[$k]["id"] ?>)"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Eliminar</button>
+				<button class="btn btn-danger" onClick="cridafuncioacciousuari('eliminar',<?php echo $array[$k]["id"] ?>)"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Eliminar</button>
 				<button class="btn btn-warning" data-toggle="modal" data-target="#myModalmod<?php echo $array[$k]["id"] ?>"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Modificar</button>			
                 
                 <!-- Modal -->
@@ -111,7 +112,7 @@ foreach($array as $k=>$v) {
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel·la</button>
-                        <button type="button" class="btn btn-success" onclick="cridafuncioaccio('modificar','<?php echo $array[$k]["id"]; ?>')">Guarda els canvis</button>
+                        <button type="button" class="btn btn-success" onclick="cridafuncioacciousuari('modificar','<?php echo $array[$k]["id"]; ?>')">Guarda els canvis</button>
                       </div>
                     </div>
                   </div>

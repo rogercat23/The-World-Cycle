@@ -19,7 +19,9 @@
                     <li><a href="productes.php">Productes</a></li>
                     <?php
 						if(isset($_SESSION['correu'])){
-                    		echo "<li><a href='usuaris.php'>Usuaris</a></li>";
+							if($_SESSION['rol']==1){ //Només deixem fer els administradors com rol que hi ha tres admin, treballador, client
+                    			echo "<li><a href='usuaris.php'>Usuaris</a></li>";
+							}
 						}
 					?>
                     <li><a href="contacte.php">Contacte</a></li>
@@ -40,13 +42,17 @@
                         </div>
                         <div class="row">
                         	<div id="nomcdiv" class="col-xs-6 has-feedback">
-                        		<input type="text" class="form-control" id="nomc" name="nomc" placeholder="Nom" onChange="comprovarCamps(this.id)"><span id="nomcicon" class="form-control-feedback glyphicon"></span></br>
+                        		<input type="text" class="form-control" id="nomc" name="nomc" placeholder="Nom" onChange="comprovarCamps(this.id)" title="Es obligatori!" required><span id="nomcicon" class="form-control-feedback glyphicon"></span></br>
                         	</div>
                             <div id="cognomsdiv" class="col-xs-6 has-feedback">
-                        		<input type="text" class="form-control" id="cognoms" name="cognoms" placeholder="Cognoms" onChange="comprovarCamps(this.id)"><span id="cognomsicon" class="form-control-feedback glyphicon"></span></br>
+                        		<input type="text" class="form-control" id="cognoms" name="cognoms" placeholder="Cognoms" onChange="comprovarCamps(this.id)" title="Es obligatori!" required><span id="cognomsicon" class="form-control-feedback glyphicon"></span></br>
                         	</div>
                        	</div>
                         <?php
+						} else {
+							//echo $_SESSION['correu'];
+							//echo $_SESSION['nom'];
+							//echo $_SESSION['cognoms'];
 						}
 						?>
                         <div class="form-group">
@@ -58,7 +64,7 @@
                       <div class="form-group">
                       	<div id="comentaridiv" class="has-feedback">
                           <label for="Comentari">Comentari:</label>
-                          <textarea class="form-control" rows="5" id="comentari" name="tema" onChange="comprovarCamps(this.id)" title="Es obligatori!" required></textarea><span id="comentariicon" class="form-control-feedback glyphicon"></span>
+                          <textarea class="form-control" rows="5" id="comentari" name="comentari" onChange="comprovarCamps(this.id)" title="Es obligatori! Màxim 500 caracters..." maxlength="500" required></textarea><span id="comentariicon" class="form-control-feedback glyphicon"></span>
                       	</div>
                       </div>
                       <center>

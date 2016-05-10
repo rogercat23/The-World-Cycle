@@ -21,10 +21,10 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header header-title-modal">
-        <h4>Registrar</h4>
+        <h4 id="titoldialogr">Registrar</h4>
       </div>
       <div class="modal-body">
-        <form  action="controlregistrar.php" method="post" id="formulariregistrar">
+        <form  action="controlregistrar.php" method="post" id="formulariregistrar" class="dialogauto">
               <div class="form-group">
                 <label>Usuari:</label>
                 <div id="correudiv" class="has-feedback">
@@ -99,7 +99,7 @@
                </div></br>
                 <div class="row">
                      <div class="col-xs-8 has-feedback" id="ciutatdiv">
-                        <input type="text" class="form-control" id="ciutat" name="ciutat" placeholder="Ciutat" title="Es obligatori!" disabled="true" required><span id="ciutaticon" class="form-control-feedback glyphicon"></span>
+                        <input type="text" class="form-control" id="ciutat" name="ciutat" onChange="comprovarCamps(this.id)" placeholder="Ciutat" title="Es obligatori!" disabled="true" required><span id="ciutaticon" class="form-control-feedback glyphicon"></span>
                       </div>
                       <div class="col-xs-4 has-feedback" id="postaldiv">
                         <input type="text" class="form-control" id="postal" name="postal" placeholder="Postal" onChange="comprovarCamps(this.id)" title="Es obligatori!" required><span id="postalicon" class="form-control-feedback glyphicon"></span>
@@ -123,7 +123,7 @@
       </div>
       <div class="modal-footer">
             <button type="button" class="btn btn-danger" id="netejarformregistrar" data-dismiss="modal">Cancel·la</button>
-            <button type="submit" class="btn btn-success">Registrar</button>
+            <button id="btn-registrar" type="submit" class="btn btn-success">Registrar</button>
         </form>
       </div>
     </div>

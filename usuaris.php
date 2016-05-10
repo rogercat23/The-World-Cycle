@@ -1,5 +1,4 @@
-<!doctype html>
-    <head>
+<!doctype html><head>
         <title> The World Cycle Web </title>
         <?php
 			include 'llibreries.php';
@@ -11,20 +10,19 @@
                 <img src="img\logo\theworldcycle.png"/>
                 <div id="formulari-usuari"> 
                 	<?php
-						include 'session.php';
-						if(isset($_SESSION['correu'])){
-                    		echo "<form action='' method='post'><span class='glyphicon glyphicon-user' aria-hidden='true'></span> Benvingut ". $_SESSION['nom']." ". $_SESSION['cognoms'] ."\n<button type='submit' class='button btn-danger btn-sm' name='tancarsessio'><span class='glyphicon glyphicon-off' aria-hidden='true'></span> Tancar sessi&oacute;</button></form>";
-						} else {
-							header('Location: index.php'); //Farem tornar index.php si hem sortit de sessió
-						}
+						include 'sessiogeneral2.php';
 					?>
                 </div>
-                <ul id="botons_menu_hor">
+                
+    
+	<ul id="botons_menu_hor">
                     <li><a href="index.php">Benvingut The World Cycle!</a></li>
                     <li><a href="productes.php">Productes</a></li>
                     <?php
 						if(isset($_SESSION['correu'])){
-                    		echo "<li><a href='usuaris.php'>Usuaris</a></li>";
+							if($_SESSION['rol']==1){ //Només deixem fer els administradors com rol que hi ha tres admin, treballador, client
+                    			echo "<li><a href='usuaris.php'>Usuaris</a></li>";
+							}
 						}
 					?>
                     <li><a href="contacte.php">Contacte</a></li>
@@ -36,7 +34,7 @@
 				<div class="col-md-1">
 				</div>
 				<div class="col-md-1">
-					<button type="button"  class="btn btn-primary" data-toggle="modal" data-target="#myModalregistrar" ><span class='glyphicon glyphicon-plus' aria-hidden='true'></span><span class='glyphicon glyphicon-user' aria-hidden='true'></span> Usuari</button>
+					<button type="button"  class="btn btn-primary" data-toggle="modal" data-target="#myModalregistrar" onClick="modelusuari()" ><span class='glyphicon glyphicon-plus' aria-hidden='true'></span><span class='glyphicon glyphicon-user' aria-hidden='true'></span> Usuari</button>
 				</div>
 				<div class="col-md-6">
 				</div>
