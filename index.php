@@ -2,24 +2,25 @@
     <head>
         <title> The World Cycle Web </title>
         <?php
-			include	 'llibreries.php';
+			include 'llibreries.php';
+			include "/pg/sessio/sessio.php";
 		?>
     </head>
     <body>
         <div class="cos">
             <div id="qd_titol">
                 <img src="img\logo\theworldcycle.png"/>
-                <div id="formulari-usuari"> 
-                	<?php
-						include 'sessiogeneral.php';
-					?>
+                <div id="formulari-usuari1"> 
                 </div>
                 <ul id="botons_menu_hor">
                     <li><a href="index.php">Benvingut The World Cycle!</a></li>
                     <li><a href="productes.php">Productes</a></li>
                     <?php
 						if(isset($_SESSION['correu'])){
-                    		echo "<li><a href='usuaris.php'>Usuaris</a></li>";
+							
+							if($_SESSION['rol']==1){ //Només deixem fer els administradors com rol que hi ha tres admin, treballador, client
+                    			echo "<li><a href='usuaris.php'>Usuaris</a></li>";
+							}
 						}
 					?>
                     <li><a href="contacte.php">Contacte</a></li>
@@ -36,29 +37,26 @@
 					<!-- Wrapper for sliders for items -->
 					<div class="carousel-inner">
 						<div class="item active">
-							<img src="img\Carousel\Prova1.jpg" alt="Prova">
+							<img src="img\Carousel\portada1.png" alt="Portada1">
 							<div class="carousel-caption">
-								<h1>Prova</h1>
+								<h1></h1>
 								<p>
-									Aqui hi ha oferta bona ....
 								</p>
 							</div>
 						</div>
 						<div class="item">
-							<img src="img\Carousel\Prova2.jpg" alt="Prova2">
+							<img src="img\Carousel\portada2.png" alt="Portada2">
 							<div class="carousel-caption">
-								<h1>Prova2</h1>
+								<h1></h1>
 								<p>
-									Aqui hi ha oferta bona ....
 								</p>
 							</div>
 						</div>
 						<div class="item">
-							<img src="img\Carousel\Prova3.jpg" alt="Prova3">
+							<img src="img\Carousel\portada3.png" alt="Portada3">
 							<div class="carousel-caption">
-								<h1>Prova3</h1>
+								<h1></h1>
 								<p>
-									Aqui hi ha oferta bona ....
 								</p>
 							</div>
 						</div>
@@ -70,7 +68,7 @@
 					<a class="carousel-control right" href="#myCarousel" role="button" data-slide="next">
 						<span class="glyphicon glyphicon-chevron-right color-default" aria-hidden="true"></span>
 					</a>
-				</div>     
+				</div>
             </div>
         </div>
         <?php

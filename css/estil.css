@@ -110,7 +110,7 @@ body{
     background-color: black;
 }
 
-#formulari-usuari{
+#formulari-usuari1, #formulari-usuari2{
 	position:fixed;
 	right:10px;	
 }
@@ -126,7 +126,7 @@ body{
 }
 
 #taula_productes tr th{
-	color:red;
+	/*color:red;*/
 }
 
 p{
@@ -135,6 +135,10 @@ p{
 }
 
 /*Modificant una part estil de bootstrap que té un fallo amb icons*/
+.row .ambicondret{
+	left:100%;
+}
+
 .row .form-control-feedback{
 	right:15px;
 }
@@ -234,4 +238,157 @@ p{
 
 .carousel-indicators .active{ /*igual anterior per amb rodones que sorten per sota*/
 	background-color:#459e00;
+}
+
+/*Fer invisible els productes quan comencem carregar la pàgina*/
+.hide-div{
+	display:none;
+}
+
+/*DISSENY pel boto com file que no te cap disseny pel bootstrap per tant fem nosaltres com si fossis hagi fet bootstrap*/
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+/*Format de galeria sobre els productes*/
+.gallery li{
+	float:left;
+	padding:3px;
+}
+
+.div-producte-1{
+	background-color:#e1eee3;
+	border-radius:10px;
+	text-align:center;
+	height:100%;
+}
+
+/*Columnes pel botons del producte*/
+#column-btn{
+	width:100px;
+}
+
+/*Form plus and more pels unitats del producte*/
+#myform {
+    text-align: center;
+    padding: 5px;
+    margin: 2%;
+}
+
+.qty {
+    width: 40px;
+    height: 25px;
+    text-align: center;
+}
+
+input.qtyplus { 
+	width:25px; 
+	height:25px;
+}
+
+input.qtyminus { 
+	width:25px; 
+	height:25px;
+}
+
+/*Format div per les fotos de la hora d'eliminar la finestra de modificar*/
+.imatges_galeria{
+	position:relative;
+	width:100%;
+	height:100%;
+	border:red 2px solid;
+}
+
+.mostrar_imatge_poseli{
+	position:relative;
+	widows:60px;
+	height:60px;
+	float:left;
+}
+
+.imatge_eli:hover{
+	opacity: 0.4;
+}
+
+/*Div pels comentaris dels productes*/
+.comentari_producte{
+	background-color:#1E90FF;
+	border-radius:10px;
+	margin:10px;
+	padding:10px;
+}
+
+.eli_comentari{
+	float:right;
+}
+
+.avis_div{
+	width:50%;
+  	margin:0 auto ;
+}
+
+#taula_productes2{
+	width:70%;
+	margin:0 auto;	
+}
+
+.preu_total_unitats{
+	font-weight:bold;
+	
+}
+
+.passos_cistella_h3{
+	font-weight:bold;
+}
+
+#pas1_adreces_triar{
+	width:80%;
+	margin:0 auto;
+}
+
+#pas2_pagament{
+	width:80%;
+	margin:0 auto;
+}
+
+#pas3_factura_pdf{
+	width:80%;
+	margin:0 auto;
+}
+
+/*Mostacio mapa des de getusuarpi.php*/
+#mostrar_mapa{
+	width:80%;
+	height:500px;
+	display:none;
+	margin:0 auto;
+}
+
+#boto_tancar_mapa{
+	text-align:center;
+}
+
+/* icon per eliminar una foto del producte*/
+.icon_producte{
+	position:absolute;
+	right:25px;
+	top:25px;
+	color:red;
+	z-index:1;
 }
