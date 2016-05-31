@@ -1,15 +1,24 @@
 <?php
 	include	 'llibreries.php';
+<<<<<<< HEAD
 	include "/pg/sessio/sessio.php";
 	require_once("pg/classes/GeneralBD.php");
 	$GeneralBD = new GeneralBD();
 	
 	$arrayAdr = $GeneralBD->runQuery("SELECT * FROM te_usr_adr tua, ciutat c, adreca a WHERE a.id_ciutat=c.id AND tua.id_adreça=a.id AND tua.id_usuari=". $_GET['id_usuari']); 
 	$totalarrayAdr = count($arrayAdr);
+=======
+	require("session.php");
+	require_once("GeneralBD.php");
+	$GeneralBD = new GeneralBD();
+	
+	$arrayAdr = $GeneralBD->runQuery("SELECT * FROM  te_usr_adr tua, adreca a, ciutat c WHERE a.id_ciutat=c.id AND tua.id_adreça=a.id AND tua.id_usuari=". $_GET['id_usuari']); 
+>>>>>>> origin/Productes-Ajax
 ?>
 
 <table class="table  table-striped">  
 <thead>  
+<<<<<<< HEAD
     <th>Carrer Numero Porta Pis</th>
     <th>Postal</th>
     <th>Ciutat</th>
@@ -24,6 +33,14 @@
 	?>
     <th>
     </th>
+=======
+<tr>  
+<th>Carrer Numero Porta Pis</th>
+<th>Postal</th>
+<th>Ciutat</th>
+<th>Provincia/Regió</th>
+<th>Pais</th>   
+>>>>>>> origin/Productes-Ajax
 </tr>  
 </thead>  
 <tbody>  
@@ -44,6 +61,7 @@ foreach($arrayAdr as $k=>$v) {
         	<?php
         $pais = $GeneralBD->runQuery("SELECT * FROM  pais WHERE id=". $proreg[0]["id_pais"]);
 			 echo $pais[0]["nom"]; ?>
+<<<<<<< HEAD
         </td>
         <?php
 			if($totalarrayAdr>1){
@@ -57,6 +75,10 @@ foreach($arrayAdr as $k=>$v) {
         <td>
         	<button class="btn btn-default" onClick="buscarmapa('<?php echo $arrayAdr[$k]["carrer"]; ?>', '<?php echo $arrayAdr[$k]["numero"]; ?>', '<?php echo $arrayAdr[$k]["nom"]; ?>')"><span class="glyphicon glyphicon glyphicon-globe" aria-hidden="true"></span> Mapa</button>
         </td> 
+=======
+        </td>  
+        
+>>>>>>> origin/Productes-Ajax
     </tr>
 <?php
 }
@@ -75,6 +97,12 @@ foreach($arrayAdr as $k=>$v) {
 
 <?php
 	/*Pillem per informació del formulari pais, provincia o regio i ciutats*/
+<<<<<<< HEAD
+=======
+	require_once("GeneralBD.php");
+	
+	$GeneralBD = new GeneralBD();
+>>>>>>> origin/Productes-Ajax
 	$paisos = $GeneralBD->runQuery("SELECT * FROM pais");
 	$provinciesregions = $GeneralBD->runQuery("SELECT * FROM provinciaregio");
 	$ciutats = $GeneralBD->runQuery("SELECT * FROM ciutat");
@@ -142,7 +170,11 @@ foreach($arrayAdr as $k=>$v) {
       </div>
       <div class="modal-footer">
             <button type="button" class="btn btn-danger" id="netejarformafeadreca" data-dismiss="modal">Cancel·la</button>
+<<<<<<< HEAD
             <button type="submit" onClick="cridafuncioaccioafgadr('afegir',0, <?php echo $_SESSION['id'] ?>)" class="btn btn-success">Afegir</button>
+=======
+            <button type="submit" class="btn btn-success">Afegir</button>
+>>>>>>> origin/Productes-Ajax
         </form>
       </div>
     </div>

@@ -6,7 +6,11 @@
         <h4>Producte</h4>
       </div>
       <div class="modal-body">
+<<<<<<< HEAD
         <form method="post" id="formulariproducte" action="afegirproducte.php" enctype="multipart/form-data">
+=======
+        <form method="post" id="formulariproducte" action="afegirproducte.php">
+>>>>>>> origin/Productes-Ajax
             <div class="form-group">
                 <label>Dades:</label>
                 <div id="pnomdiv" class="has-feedback">
@@ -54,7 +58,12 @@
                     <span id="descicon" class="form-control-feedback glyphicon"></span>
                 </div></br>
 				<div id="fotospdiv" class="has-feedback">
+<<<<<<< HEAD
                     <input id="fotosp" class="fotosp" name="fotosp[]" type="file" multiple class="file-loading" accept="image/jpeg" title="Es obligatori pujar una o mes fotos!" required>
+=======
+					<label class="control-label">Selecionar les fotos:</label>
+                    <input id="fotosp" name="fotosp[]" type="file" multiple class="file-loading" accept="image/x-png, image/jpeg" title="Es obligatori pujar una o mes fotos!" required>
+>>>>>>> origin/Productes-Ajax
 				</div>
             </div>
       </div>

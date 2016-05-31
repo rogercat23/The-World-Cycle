@@ -17,7 +17,10 @@
                     <li><a href="productes.php">Productes</a></li>
                     <?php
 						if(isset($_SESSION['correu'])){
+<<<<<<< HEAD
 							
+=======
+>>>>>>> origin/Productes-Ajax
 							if($_SESSION['rol']==1){ //Només deixem fer els administradors com rol que hi ha tres admin, treballador, client
                     			echo "<li><a href='usuaris.php'>Usuaris</a></li>";
 							}

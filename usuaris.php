@@ -9,7 +9,14 @@
         <div class="cos">
             <div id="qd_titol">
                 <img src="img\logo\theworldcycle.png"/>
+<<<<<<< HEAD
                 <div id="formulari-usuari2"> 
+=======
+                <div id="formulari-usuari"> 
+                	<?php
+						include 'sessiogeneral2.php';
+					?>
+>>>>>>> origin/Productes-Ajax
                 </div>
                 
     

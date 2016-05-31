@@ -1,15 +1,24 @@
 <?php
+<<<<<<< HEAD
 require_once("pg/classes/GeneralBD.php");
 include "/pg/sessio/sessio.php";
 $GeneralBD = new GeneralBD();
 
 $usuari = $GeneralBD->runQuery("SELECT * FROM usuari WHERE id=". $_GET['id_usuari']);//per poder pillar les dades d'usuari
+=======
+require_once("GeneralBD.php");
+require("session.php");
+$conBD = new GeneralBD();
+
+$usuari = $conBD->runQuery("SELECT * FROM usuari WHERE id=". $_GET['id_usuari']);//per poder pillar les dades d'usuari
+>>>>>>> origin/Productes-Ajax
 //Convertir format dd/mm/yyyy que BD es guarda per yyyy-mm-dd
 $data_naix = date("d/m/Y", strtotime($usuari[0]['data_naix']));
 $data_inici = date("d/m/Y", strtotime($usuari[0]['data_inici']));
 
 ?>
 <div class="row">
+<<<<<<< HEAD
 	<div class="col-md-4">
     </div>
     <div class="col-md-5"></br>
@@ -19,6 +28,17 @@ $data_inici = date("d/m/Y", strtotime($usuari[0]['data_inici']));
         Sexe: <?php echo $usuari[0]['h/d'] ?> </br></br>
         Telefon: <?php echo $usuari[0]['telefon'] ?> </br></br>
         Data de naixament: <?php echo $data_naix ?> </br></br>
+=======
+	<div class="col-md-5">
+    </div>
+    <div class="col-md-3">
+    	Correu:<?php echo $usuari[0]['correu'] ?> </br>
+        Nom: <?php echo $usuari[0]['nom'] ?> </br>
+        Cognoms: <?php echo $usuari[0]['cognom1'];?> <?php echo $usuari[0]['cognom2'] ?> </br>
+        Sexe: <?php echo $usuari[0]['h/d'] ?> </br>
+        Telefon: <?php echo $usuari[0]['telefon'] ?> </br>
+        Data de naixament: <?php echo $data_naix ?> </br>
+>>>>>>> origin/Productes-Ajax
         Data inici del compte de web: <?php echo $data_inici ?>
     </div>
 </div>
@@ -33,6 +53,12 @@ $data_inici = date("d/m/Y", strtotime($usuari[0]['data_inici']));
 
 <?php
 	/*Pillem per informació del formulari pais, provincia o regio i ciutats*/
+<<<<<<< HEAD
+=======
+	require_once("GeneralBD.php");
+	
+	$GeneralBD = new GeneralBD();
+>>>>>>> origin/Productes-Ajax
 	$dadesusuari = $GeneralBD->runQuery1("SELECT * FROM usuari");
 	$GeneralBD->tancarBD();
 ?>

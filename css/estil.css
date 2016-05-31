@@ -290,12 +290,16 @@ p{
     padding: 5px;
     margin: 2%;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/Productes-Ajax
 .qty {
     width: 40px;
     height: 25px;
     text-align: center;
 }
+<<<<<<< HEAD
 
 input.qtyplus { 
 	width:25px; 
@@ -392,3 +396,7 @@ input.qtyminus {
 	color:red;
 	z-index:1;
 }
+=======
+input.qtyplus { width:25px; height:25px;}
+input.qtyminus { width:25px; height:25px;}
+>>>>>>> origin/Productes-Ajax

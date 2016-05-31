@@ -1,4 +1,5 @@
 <?php
+<<<<<<< HEAD
 require_once("pg/classes/GeneralBD.php");
 include "/pg/sessio/sessio.php";
 $GeneralBD = new GeneralBD();
@@ -7,11 +8,19 @@ $producte = $GeneralBD->runQuery("SELECT * FROM producte p, vendre v, usuari u W
 $fotosproducte = $GeneralBD->runQuery("SELECT * FROM imatge WHERE id_producte=". $_GET['id_producte']);
 $infop = $GeneralBD->runQuery("SELECT * FROM producte WHERE id=". $_GET['id_producte']);//per poder ficar a la cistella per nom i preu
 $fotosproducte = $GeneralBD->runQuery("SELECT * FROM imatge WHERE id_producte=". $_GET['id_producte']);
+=======
+require_once("GeneralBD.php");
+require("session.php");
+$conBD = new GeneralBD();
+
+$producte = $conBD->runQuery("SELECT * FROM producte p, vendre v, usuari u WHERE p.id=v.id_producte AND v.id_usuari=u.id AND p.id=". $_GET['id_producte']);//per poder pillar descripcio i unitat
+>>>>>>> origin/Productes-Ajax
 ?>
 <div class="row">
 	<div class="col-md-3 div-producte-1">
     	<h3>Galeria</h3>
         <ul class="gallery<?php echo $_GET["id_producte"]; ?> gallery clearfix" id="p<?php echo $_GET["id_producte"]; ?>">
+<<<<<<< HEAD
         	<?php
 				if(count($fotosproducte)!=0){
 					//Pilla array on tenim les fotos del producte i mostrant que hi hagi array amb thum i real que tenim carpeta de local
@@ -29,6 +38,15 @@ $fotosproducte = $GeneralBD->runQuery("SELECT * FROM imatge WHERE id_producte=".
                 <?php		
 					}
 			?>
+=======
+                            <li><a href="img/fullscreen/1.jpg" rel="prettyPhoto[gallery1]"><img src="img/thumbnails/t_1.jpg" width="60" height="60"/></a></li>
+                            <li><a href="img/fullscreen/2.jpg" rel="prettyPhoto[gallery1]"><img src="img/thumbnails/t_2.jpg" width="60" height="60"/></a></li>
+                            <li><a href="img/fullscreen/3.jpg" rel="prettyPhoto[gallery1]"><img src="img/thumbnails/t_3.jpg" width="60" height="60"/></a></li>
+                            <li><a href="img/fullscreen/4.jpg" rel="prettyPhoto[gallery1]"><img src="img/thumbnails/t_4.jpg" width="60" height="60"/></a></li>
+                            <li><a href="img/fullscreen/5.jpg" rel="prettyPhoto[gallery1]"><img src="img/thumbnails/t_5.jpg" width="60" height="60"/></a></li>
+                            <li><a href="img/fullscreen/6.jpg" rel="prettyPhoto[gallery1]"><img src="img/thumbnails/t_2.jpg" width="60" height="60"/></a></<li>
+        </ul>
+>>>>>>> origin/Productes-Ajax
         <script>
         $(document).ready(function(){
                 $("area[rel^='prettyPhoto']").prettyPhoto();
@@ -48,11 +66,15 @@ $fotosproducte = $GeneralBD->runQuery("SELECT * FROM imatge WHERE id_producte=".
         </script>
 	</div>
 	<div class="col-md-5">
+<<<<<<< HEAD
     		<h3>Ha pujat des de: <?php echo date("d/m/Y", strtotime($producte[0]['data'])); ?></h3>
+=======
+>>>>>>> origin/Productes-Ajax
     		<h3>Descripció del producte:</h3>
             <?php
 				echo $producte[0]['descripció'];
 			?>
+<<<<<<< HEAD
              <?php
 				if(isset($_SESSION['correu'])){
 			?>
@@ -93,11 +115,14 @@ $fotosproducte = $GeneralBD->runQuery("SELECT * FROM imatge WHERE id_producte=".
             <?php
 				}
 			?>
+=======
+>>>>>>> origin/Productes-Ajax
     </div> 
     <?php
 		if(isset($_SESSION['correu'])){
 	?>
     <div class="col-md-4">
+<<<<<<< HEAD
     	<?php
         if($producte[0]['correu']!=$_SESSION['correu']){
 		?>   
@@ -122,6 +147,18 @@ $fotosproducte = $GeneralBD->runQuery("SELECT * FROM imatge WHERE id_producte=".
 			</div>
         </div>
         
+=======
+        <form id='myform'>   
+                	<input disabled="true" type='text' name='unitat<?php echo $_GET["id_producte"]; ?>' value='0' class='qty' />
+                	<button class='qtyminus gtyminus<?php echo $_GET["id_producte"]; ?> btn btn-default' field='unitat<?php echo $_GET["id_producte"]; ?>'><span class="glyphicon glyphicon-minus-sign" aria-hidden="true"></span></button>
+                	<button class='qtyplus qtyplus<?php echo $_GET["id_producte"]; ?> btn btn-default' field='unitat<?php echo $_GET["id_producte"]; ?>'><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span></button>
+               
+                	<button class="btn btn-default"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></button>
+               
+        </form>
+        </br>
+        Contacte del venedor: <?php echo $producte[0]['correu']?>
+>>>>>>> origin/Productes-Ajax
         <script>
 			jQuery(document).ready(function(){
 			// aquest boto per sumar + unitat

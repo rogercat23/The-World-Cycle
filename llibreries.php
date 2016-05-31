@@ -22,11 +22,16 @@
 <script src="lib/bootstrap.min.js"></script>
 <script src="lib/jquery.prettyPhoto.js"></script>
 <script src="lib/fileinput.min.js"></script>
+<<<<<<< HEAD
 <script src="lib/jquery.filer.min.js?v=1.0.5"></script>
 <script src="lib/custom.js?v=1.0.5"></script>
 <script src="scripts/scripts.js"></script>
 
 
+=======
+<script src="scripts/scripts.js"></script>
+
+>>>>>>> origin/Productes-Ajax
 <!-- PHP Mailer-->
 <?php
 require "lib/PHPMailer/class.phpmailer.php";

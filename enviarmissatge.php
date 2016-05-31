@@ -1,6 +1,10 @@
 <?php
 	include	 'llibreries.php';
+<<<<<<< HEAD
 	include "pg/sessio/sessio.php";	
+=======
+	include "session.php";	
+>>>>>>> origin/Productes-Ajax
 	if(isset($_POST["correu1"])){ //per comprovar que hagi rebut post correu1 i fiquem tres camps de post a mes a mes, tema i comentari. Si es el contrari, entrem amb sessió per poder enviar dades amb usuari iniciat que la pàgina del contacte no mostra els tres camps (correu, nom i cognoms)
 		$email = $_POST["correu1"];
 		$nom = $_POST["nomc"];

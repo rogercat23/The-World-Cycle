@@ -47,6 +47,7 @@ $(document).ready(function() {
 		NetejarCampsSelect(prselect);
 	}
 	
+<<<<<<< HEAD
 	function netejar_avisats_producte(){
 		var ids = ["pnom", "ppreu", "puni", "sn", "categoria", "desc", "fotosp"];
 		for($i=0;$i<ids.length;$i++){//estalviem repetir i cridem per netejar amb array sense repetir res que es més curt i més net.
@@ -60,6 +61,8 @@ $(document).ready(function() {
 		NetejarCampsSelect(prselect);	
 	}
 	
+=======
+>>>>>>> origin/Productes-Ajax
 	$.datepicker.regional['ca'] = { //Ficar format catala que no sortia les libreries de jquery UI i que deixi triar opció per canviar mes i any
 		changeMonth: true,
 		changeYear: true,
@@ -135,6 +138,35 @@ $(document).ready(function() {
 		return correcte;
 	});
 	
+	$("#formulariafgadr").submit(function(){//La hora de clicar per afegir, comprovarem que tots els camps estiguin bé i enviar, si es contrari no deixarem enviar i farem avis.
+		alert("hola");
+		/*
+		var correcte = true;	
+		var cont = 0;
+		var divs = ["correudiv", "passworddiv", "password2div", "nomdiv", "cognom1div", "cognom2div", "telefondiv", "data_naixdiv", "ciutatdiv", "postaldiv", "carrerdiv", "numerodiv", "pisdiv", "portadiv"];
+		for(i=0;i<divs.length;i++){
+			if($("#"+divs[i]).hasClass('has-error') || $("#"+divs[i]).hasClass('has-warning')){ //si te classe has-error avisem que s'ha de revisar que no té bé
+				cont++;
+				correcte = false;
+			}	
+		}
+		
+		if(cont!=0){
+			mostrar_notificacio_pnotify('Camps Errors: ','S\' ha de revisar '+ cont +' camp/s que t&eacute; error o alertat.','error');
+		}
+
+		if($("#pis").val().length != 0 || $("#porta").val().length != 0) { //comprova que un dels dos es introduit per obligar introduir els dos o cap per evitar enviar un del dos introduit.
+			if($("#pis").val().length != 0 && $("#porta").val().length != 0) { //Comprova que els dos no poden estar buides (pis i porta)
+			} else{
+				mostrar_notificacio_pnotify('Info: ','S\' ha de tenir afegit pis i porta o sense que no es obligatori si es una casa sola.','error');
+				correcte = false;	
+			}
+		}
+		//return false;
+		return correcte;
+		*/
+	});
+	
 	$("#netejarformregistrar").click(function(){
 		PNotify.removeAll(); //Borrar totes les notificacions que esta mostrant aquest moment
 		netejar_avisats_registrar();//treure els divs que estan posats errors, success, warning
@@ -148,12 +180,18 @@ $(document).ready(function() {
 	
 	$("#netejarformafeadreca").click(function(){
 		PNotify.removeAll(); //Borrar totes les notificacions que esta mostrant aquest moment
+<<<<<<< HEAD
 		netejar_avisats_afgadr();//treure els divs que estan posats errors, success, warning
 	});
 	
 	$("#netejarformproducte").click(function(){
 		PNotify.removeAll(); //Borrar totes les notificacions que esta mostrant aquest moment
 		netejar_avisats_producte();//treure els divs que estan posats errors, success, warning
+=======
+		alert("hola");
+		netejar_avisats_afgadr();//treure els divs que estan posats errors, success, warning
+		mostrar_notificacio_pnotify('Info: ','Acaba de netejar tots els camps del contacte!','');
+>>>>>>> origin/Productes-Ajax
 	});
 	
 	$('.ciutat').on('autocompletechange',function(){
@@ -207,6 +245,7 @@ $(document).ready(function() {
 		$("#iconcarregarproductes").hide();
 		$("#cos-contingut-productes").show();
     });
+<<<<<<< HEAD
 	//Quan entrem mostrar els productes del seu propietari
 	$("#paginationproductesusr li").live('click',function(e){
     e.preventDefault();
@@ -238,6 +277,12 @@ $(document).ready(function() {
 	$(".fotosp").fileinput({
 		showUpload: false,
 		allowedFileExtensions: ["jpg"],	
+=======
+	
+	$("#fotosp").fileinput({
+		showUpload: false,
+		allowedFileExtensions: ["jpg","png"],	
+>>>>>>> origin/Productes-Ajax
 	});
 	
 });
@@ -469,7 +514,11 @@ function comprovarCamps(id){
 				var regtext = /^([0-9])*$/;
 			break;
 			case 'ppreu':
+<<<<<<< HEAD
 				var regtext = /^-?[0-9]+([,][0-9]*)?$/;
+=======
+				var regtext = /^-?[0-9]+([.][0-9]*)?$/;
+>>>>>>> origin/Productes-Ajax
 			break;
 			case 'pais':
 				var id_pais = $("#"+id).val();//Pillem valor escullit del pais per poder pillar totes les provincies i regions (depen pais)
@@ -576,7 +625,11 @@ function comprovarCamps(id){
 						mostrar_notificacio_pnotify("Porta","Han de ser numeros!","error");
 					break;
 					case 'ppreu':
+<<<<<<< HEAD
 						mostrar_notificacio_pnotify("Preu","Han de ser números i són decimals es separa amb coma , !","error");
+=======
+						mostrar_notificacio_pnotify("Preu","Han de ser números i són decimals es separa amb punt . !","error");
+>>>>>>> origin/Productes-Ajax
 					break;
 					case 'puni':
 						mostrar_notificacio_pnotify("Unitat","Han de ser números!","error");
@@ -670,6 +723,7 @@ function cridafuncioacciousuari(accio,id) {
 	});
 };
 
+<<<<<<< HEAD
 //funcions per AJAX des de productes per modificar i borrar 
 function cridafuncioaccioproducte(accio,id,pag) {
 		PNotify.removeAll(); //Borrar totes les notificacions que esta mostrant aquest moment
@@ -1048,6 +1102,8 @@ function cridafuncioadadesusuarimod() {
 	
 
 
+=======
+>>>>>>> origin/Productes-Ajax
 //Funciones per modificar models sobre usuari i productes per no crear un altre
 function modelusuari(){
 	$("#titoldialogr").html("Crear usuari");	
@@ -1062,16 +1118,20 @@ function seleccionarcategoria(id){
 	$("#cos-pagines-nav-productes").load("barra-pagines-productes.php?categoria="+id_select);
 }
 
+<<<<<<< HEAD
 //funciona des de la pàgina productes per mostrar els seu propietari sessio iniciat
 function mostrarmeuproductes(id_usr){
 	$("#cos-contingut-productes").load("paginationProductes.php?page=1&id_usr="+id_usr);
 	$("#cos-pagines-nav-productes").load("barra-pagines-productes.php?id_usr="+id_usr);
 }
 
+=======
+>>>>>>> origin/Productes-Ajax
 //mostrar i amagar els productes
 function clickMostrarAmagar(vari){
 	$('#tr'+vari.id).slideToggle(500);
 }
+<<<<<<< HEAD
 //La hora de clicar form cridara aqui abans de mod per compr tot correcte els camps i retornara true o false sobre mod usuari
 function formularidadesusuarimod(){
 	var correcte = true;	
@@ -1197,3 +1257,6 @@ function netejarformproducte2(id_usr, page){
 	$("#cos-contingut-productes").load("paginationProductes.php?page="+page+"&id_usr="+id_usr);
 	$("#cos-pagines-nav-productes").load("barra-pagines-productes.php?page="+page+"id_usr="+id_usr);
 };
+=======
+
+>>>>>>> origin/Productes-Ajax

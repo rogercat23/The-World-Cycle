@@ -27,7 +27,11 @@
             </div>
             <div id="qd_cos"><br>
 	<?php
+<<<<<<< HEAD
 		require_once("pg/classes/GeneralBD.php");
+=======
+		require_once("GeneralBD.php");
+>>>>>>> origin/Productes-Ajax
 		$conBD = new GeneralBD();
 		$categories = $conBD->runQuery("SELECT * FROM categoria");
 
@@ -38,14 +42,23 @@
         <?php
 			if(isset($_SESSION['correu'])){
 		?>
+<<<<<<< HEAD
 		<div class="col-md-4">
 			<button type="button"  class="btn btn-primary" data-toggle="modal" data-target="#myModalproducte" ><span class='glyphicon glyphicon-plus' aria-hidden='true'></span> Producte</button>
 			<button type="button"  class="btn btn-primary" onClick="mostrarmeuproductes(<?php echo $_SESSION['id'] ?>)"><span class='glyphicon glyphicon-inbox' aria-hidden='true'></span> Els meus productes</button>
+=======
+		<div class="col-md-2">
+			<button type="button"  class="btn btn-primary" data-toggle="modal" data-target="#myModalproducte" ><span class='glyphicon glyphicon-plus' aria-hidden='true'></span> Producte</button>
+>>>>>>> origin/Productes-Ajax
 		</div>
         <?php 
 			}
 		?>
+<<<<<<< HEAD
 		<div class="col-md-3">
+=======
+		<div class="col-md-2">
+>>>>>>> origin/Productes-Ajax
 			<select class="form-control" id="categoria" onChange="seleccionarcategoria(this.id)">
 				<option value="0">Totes les categories...</option>
 				<?php
@@ -65,7 +78,66 @@
 	<?php
 	        include 'dialogproducte.php';
 	?> 
+<<<<<<< HEAD
         </div>        
+=======
+</body>
+<script>
+function cridafuncioaccioproducte(accio,id) {
+		PNotify.removeAll(); //Borrar totes les notificacions que esta mostrant aquest moment
+		$("#iconcarregar").show();
+		var query;
+		switch(accio) {
+			case "modificar":
+				var pnom = $("#pnom"+id).val();
+				var ppreu= $("#ppreu"+id).val();
+				var puni= $("#puni"+id).val();
+				var cat = $("#categoria"+id).val();
+				var desc = $("#desc"+id).val();
+				query = 'accio='+accio+'&id_producte='+id+'&pnom='+pnom+'&ppreu='+ppreu+'&puni='+puni+'&cat='+cat+'&desc='+desc;
+				//alert(query);
+			break;
+			case "eliminar":
+				query = 'accio='+accio+'&id_producte='+id;
+				//alert(query);
+			break;
+		}
+	 
+		$.ajax({
+		url: "accionsBDproductes.php",
+		data:query,
+		type: "POST",
+		success:function(data){
+			switch(accio) {
+				case "eliminar":
+					if(data == "S'ha eliminat correctament el producte"){
+						mostrar_notificacio_pnotify("Producte",data,"success");
+						$("#cos-contingut-productes").load("paginationProductes.php?page=1"); //tornem carregar la pagina aixi no mostra el producte que acabem d'eliminar
+					} else {
+						mostrar_notificacio_pnotify("Producte",data,"info");
+					}
+				break;
+				case "modificar":
+					mostrar_notificacio_pnotify("Producte",data,"success");
+					$("#cos-contingut-productes").load("paginationProductes.php?page=1"); //tornem carregar la pagina aixi no mostra el producte que acabem d'eliminar
+					$('#myModalproducte'+id).modal('hide'); //amagar i borrar fondo que no marxava
+					$('body').removeClass('modal-open');
+					$('.modal-backdrop').remove();
+				break;
+			}
+			$("#iconcarregarproductes").hide();
+		},
+		error:function (){
+			mostrar_notificacio_pnotify("AJAX BD","En general no funciona!","error");
+			$("#iconcarregarproductes").hide();
+		}
+	});
+};
+
+</script>
+        </div>
+        
+>>>>>>> origin/Productes-Ajax
         <?php
 			include 'dialogregistrar.php';
 		?>

@@ -1,12 +1,21 @@
 <?php
 	//Incluir sessions i BD per poder afegir les dades
+<<<<<<< HEAD
 	include "pg/sessio/sessio.php";
 	require_once("pg/classes/GeneralBD.php");
+=======
+	include "session.php";
+	require_once("GeneralBD.php");
+>>>>>>> origin/Productes-Ajax
 	
 	//echo "pagina afegir producte";
 	//Variables per afegir camps introduits del producte per afegir
 	$nomp = $_POST['pnom'];
+<<<<<<< HEAD
 	$preup = str_replace(',','.',$_POST['ppreu']);
+=======
+	$preup = $_POST['ppreu'];
+>>>>>>> origin/Productes-Ajax
 	$unitp = $_POST['puni'];
 	$ns = $_POST['sn'];
 	$ctg = $_POST['categoria'];
@@ -14,6 +23,19 @@
 	//$fotop = $_POST['fotosp'];
 	$data_actual = date("Y-n-j");//Pilla data actual
 	echo "Nom: ". $nomp ." Preu: ". $preup ." Unitat: ". $unitp ." Nou/Segon ma: ". $ns ." Categoria: ". $ctg ." Descripció: ". $desc ." Data_actualment: ". $data_actual;
+<<<<<<< HEAD
+=======
+	/*for($i=0;$i<count($fotop);$i++){ //mostrar nom de cada foto d'Array
+		echo $fotop[$i]." ";
+	
+	}*/
+	
+	$total = count($_FILES['fotosp']['name']);
+	echo "Total array files ". $total;
+		
+
+	
+>>>>>>> origin/Productes-Ajax
 	//inicia BD amb classe GeneralBD on tenim tots els funcions necessaris per fer amb BD
 	$GeneralBD = new GeneralBD();
 	
@@ -28,6 +50,7 @@
 	$id_usuari = $_SESSION['id'];
 	$GeneralBD->InUpDe("INSERT INTO `vendre` (`id_producte`, `id_usuari`, `data`, `quantitat`) VALUES ('". $id_producte ."', '". $id_usuari ."', '". $data_actual ."', '". $unitp ."');");
 	
+<<<<<<< HEAD
 	//INPUT FILE sobre fotos afegits
 	//Funció per guardar com array totes les fotos rebut file que es multiple
 	function reArrayFiles(&$file_post) {
@@ -87,6 +110,9 @@ if ($_FILES['fotosp']) {
 
 }
 	
+=======
+	//Afegint els noms de les fotos 
+>>>>>>> origin/Productes-Ajax
 	
 	
 	

@@ -1,6 +1,11 @@
 <?php 
+<<<<<<< HEAD
 	include "pg/sessio/sessio.php";
 	require_once("pg/classes/GeneralBD.php");
+=======
+	include "session.php";
+	require_once("GeneralBD.php");
+>>>>>>> origin/Productes-Ajax
 	
 	$correu = $_POST["correu"]; 
 	$pass = md5($_POST["password"]); 
@@ -77,8 +82,13 @@
 		echo "Ip de la andre&ccedil;a es ". $id_adreca; 
 	}
 	
+<<<<<<< HEAD
 	$id_usuari = $GeneralBD->InReturnId("INSERT INTO `usuari` (`correu`, `nom`, `cognom1`, `cognom2`, `h/d`, `telefon`, `data_naix`, `data_inici`, `id_roles`, `id_contrassenya`, `id_estat`) VALUES ('".$correu."', '".$nom."', '".$cognom1."', '".$cognom2."', '".$hd."', '".$telefon."', '".$data_naix."', '".$data_inici."', '2', '".$id_pass."', '1');");
 	//INSERT INTO `usuari` (`correu`, `nom`, `cognom1`, `cognom2`, `h/d`, `telefon`, `data_naix`, `data_inici`, `id_roles`, `id_adreca`, `id_contrassenya`, `id_estat`) VALUES ('martineta@gmail.com', 'Martina', 'Niubó', 'Torrelles', 'Dona', '123123123', '1996-01-31', '2016-01-28', '2', '22', '37', '1');
+=======
+	$id_usuari = $GeneralBD->InReturnId("INSERT INTO `usuari` (`correu`, `nom`, `cognom1`, `cognom2`, `h/d`, `telefon`, `data_naix`, `data_inici`, `id_roles`, `id_contrassenya`, `id_estat`) VALUES ('".$correu."', '".$nom."', '".$cognom1."', '".$cognom2."', '".$hd."', '".$telefon."', '".$data_naix."', '".$data_inici."', '3', '".$id_pass."', '1');");
+	//INSERT INTO `usuari` (`correu`, `nom`, `cognom1`, `cognom2`, `h/d`, `telefon`, `data_naix`, `data_inici`, `id_roles`, `id_adreca`, `id_contrassenya`, `id_estat`) VALUES ('martineta@gmail.com', 'Martina', 'Niubó', 'Torrelles', 'Dona', '123123123', '1996-01-31', '2016-01-28', '1', '22', '37', '1');
+>>>>>>> origin/Productes-Ajax
 
 	//Creem relacio entre adreça i usuari
 	$GeneralBD->InUpDe("INSERT INTO `te_usr_adr` (`id_usuari`, `id_adreça`) VALUES ('". $id_usuari ."', '". $id_adreca ."');");

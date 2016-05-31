@@ -1,6 +1,11 @@
 <?php
+<<<<<<< HEAD
 	include "/pg/sessio/sessio.php";
 	require_once("pg/classes/GeneralBD.php");
+=======
+	require("session.php");
+	require_once("GeneralBD.php");
+>>>>>>> origin/Productes-Ajax
 	$GeneralBD = new GeneralBD();
 	
 	$limit = 8;  
